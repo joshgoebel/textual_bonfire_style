@@ -1,3 +1,6 @@
 Other than the basic resemblance I did a little work myself as far as some additional styles and colors, but I don't claim any copyright to the "look and feel" of this theme.
 
 (not copyrighted) Josh Goebel
+
+
+Note: Some of the CSS is still from the Simplified Light theme that comes bundled with Textual, but that CSS is on it's way out.
