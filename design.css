@@ -343,6 +343,13 @@ table.bf td.msg
 	width:93%;
 }
 
+table.bf tr#mymark td { 
+	padding:0px !important; 
+	border-top:1px solid white;
+	border-bottom:2px dotted red;
+}
+	
+
 table.bf tr[type='system'] td { 
 	background:#FC6;
 	font-size:0.9em;

@@ -5,40 +5,63 @@ function IncludeJavaScript(jsFile)
 }
 IncludeJavaScript("http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js");
 
+var Bonfire={};
+
 function rewrite_all()
 {
-	$("#body_home .line").each (function(i) {
+	Bonfire.redrawing=true;
+	$("#body_home div.line").each (function(i) {
 		num=this.id.replace("oldline","");
 		num=parseInt(num);
 		newMessagePostedToDisplay(num,"old");
 	});
+	Bonfire.redrawing=false;
 }
 
-var chatlog={};
 var table=$("<table class='bf'>");
-window.setTimeout( function(){$("#body_home").append(table);}, 100)
-window.setTimeout(rewrite_all, 500);
+window.setTimeout( function(){$("#body_home").append(table);}, 50)
+window.setTimeout(rewrite_all, 100);
+
+function move_mark()
+{
+	// look for the div mark
+	mark=$("#body_home div#mark");
+	if (mark.size() > 0)
+	{
+		mark.remove();
+		$("#mymark").remove();
+		// and create our own row mark
+		row=$("<tr>").attr("id","mymark");
+		col=$("<td colspan='2'></td>").appendTo(row);
+		table.append(row);
+	}
+}
 
 function newMessagePostedToDisplay(lineNumber, prefix)
 {
+	// move the mark
+	if (!Bonfire.redrawing)
+		move_mark();
+	
 	prefix=prefix || "";
 	look_for="#" + prefix + "line" + lineNumber;
 	var newLine = $(look_for);
-	var message=$(look_for + " span.message").html();
-	var nick=$(look_for + " span.sender").html();
-	var p=$(look_for + " p");
+	var message=$("span.message", newLine).html();
+	var nick=$("span.sender", newLine).html();
+	// var p=$(look_for + " p");
+	var p=newLine.children("p");
 	// add_message(newLine);
 	row=$("<tr>");
 	row.addClass(newLine.className);
 	row.attr("type", newLine.attr("type"));
 	row.attr("highlight", newLine.attr("highlight"));
-	if (p && p.attr("type")=="myself")
+	if (p.attr("type")=="myself")
 		row.addClass("myself");
 	sender=$("<td>").addClass("nick");
-	if (nick && nick!=chatlog.last_nick)
+	if (nick && nick!=Bonfire.last_nick)
 		{
 			sender.html(nick);
-			chatlog.last_nick=nick;
+			Bonfire.last_nick=nick;
 		}
 	msg=$("<td>").html(message).addClass("msg");
 	row.append(sender).append(msg);
