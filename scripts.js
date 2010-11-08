@@ -10,7 +10,7 @@ var Bonfire={
 	init: function()
 	{
 		// evidentally the page needs a second to render first
-		window.setTimeout(Bonfire.start, 50)
+		window.setTimeout(Bonfire.start, 25)
 	},
 	start: function()
 	{
@@ -20,6 +20,8 @@ var Bonfire={
 		//remap body_home
 		body_home.attr("id","container");
 		Bonfire.table.attr("id","body_home");
+		Bonfire.started=true;
+		
 		Bonfire.redrawing=true;
 		Bonfire.redraw();
 		Bonfire.redrawing=false;
@@ -27,9 +29,9 @@ var Bonfire={
 	redraw: function()
 	{
 		$("#container div.line").each (function(i) {
-			num=this.id.replace("oldline","");
+			num=this.id.replace("line","");
 			num=parseInt(num);
-			newMessagePostedToDisplay(num,"old");
+			newMessagePostedToDisplay(num);
 		});	
 	},
 	move_mark: function()
@@ -64,6 +66,10 @@ function render_time(time)
 
 function newMessagePostedToDisplay(lineNumber, prefix)
 {
+	if (!Bonfire.started) {
+		// window.setTimeout( function() { newMessagePostedToDisplay(lineNumber)}, 50);
+		return;
+	}
 	// move the mark
 	if (!Bonfire.redrawing)
 		Bonfire.move_mark();
@@ -93,10 +99,10 @@ function newMessagePostedToDisplay(lineNumber, prefix)
 	row.append(sender).append(msg);
 	Bonfire.table.append(row);
 	// rework ids
-	id=newLine.attr("id");
-	if (prefix=="") {
-		newLine.attr("id","old" + id); }
-	row.attr("id",id);
+	// id=newLine.attr("id");
+	// if (prefix=="") {
+	// 	newLine.attr("id","old" + id); }
+	// row.attr("id",id);
 	newLine.remove();
 	// if (message.indexOf("is listening to")!=-1)
 	// {
