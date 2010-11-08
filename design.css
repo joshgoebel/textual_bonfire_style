@@ -36,17 +36,6 @@ body div#container p {
 	position: relative;
 }
 
-/* Time */
-
-body .time {
-	color: #aaa;
-	text-indent: 0;
-	word-wrap: normal;
-	white-space: nowrap;
-	display: inline-block;
-	text-transform:lowercase;
-}
-
 /* Links */
 
 a {
@@ -305,6 +294,10 @@ table.bf td.nick
 	width:7%;
 	color:#444;
 	white-space:nowrap;
+	
+	max-width:12em;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 table.bf td.msg
 {
