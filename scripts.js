@@ -3,7 +3,8 @@ function IncludeJavaScript(jsFile)
   document.write('<script type="text/javascript" src="'
     + jsFile + '"></scr' + 'ipt>'); 
 }
-IncludeJavaScript("http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js");
+// IncludeJavaScript("http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js");
+IncludeJavaScript("jquery.min.js");
 
 var Bonfire={
 	init: function()
@@ -79,7 +80,7 @@ function newMessagePostedToDisplay(lineNumber, prefix)
 	if (prefix=="") {
 		newLine.attr("id","old" + id); }
 	row.attr("id",id);
-	newLine.remove();
+	newLine.hide();
 	// if (message.indexOf("is listening to")!=-1)
 	// {
 	// 	newLine.style.display="none";
