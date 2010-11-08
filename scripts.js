@@ -64,7 +64,7 @@ function render_time(time)
 	}
 }
 
-function newMessagePostedToDisplay(lineNumber, prefix)
+function newMessagePostedToDisplay(lineNumber)
 {
 	if (!Bonfire.started) {
 		// window.setTimeout( function() { newMessagePostedToDisplay(lineNumber)}, 50);
@@ -74,14 +74,11 @@ function newMessagePostedToDisplay(lineNumber, prefix)
 	if (!Bonfire.redrawing)
 		Bonfire.move_mark();
 	
-	prefix=prefix || "";
-	look_for="#" + prefix + "line" + lineNumber;
-	var newLine = $(look_for);
+	var newLine = $("#line" + lineNumber);
 	var message=$("span.message", newLine).html();
 	var nick=$("span.sender", newLine).html();
 	var time=$("span.time", newLine).html();
-	// var p=$(look_for + " p");
-	var p=newLine.children("p");
+	var p=newLine.children("p"); // this is where the myself class is set
 	render_time(time);
 	row=$("<tr>");
 	row.addClass(newLine.className);
@@ -103,7 +100,7 @@ function newMessagePostedToDisplay(lineNumber, prefix)
 	// if (prefix=="") {
 	// 	newLine.attr("id","old" + id); }
 	// row.attr("id",id);
-	newLine.remove();
+	newLine.hide();
 	// if (message.indexOf("is listening to")!=-1)
 	// {
 	// 	newLine.style.display="none";
