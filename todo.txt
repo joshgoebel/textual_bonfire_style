@@ -1,2 +1,3 @@
 * Fix the new content marker
 * Make sure we honor the scrollback limits
+* Add timestamps

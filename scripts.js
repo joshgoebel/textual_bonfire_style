@@ -14,15 +14,19 @@ var Bonfire={
 	},
 	start: function()
 	{
+		body_home=$("#body_home")
 		Bonfire.table=$("<table class='bf'>");
-		$("#body_home").append(Bonfire.table);
+		body_home.append(Bonfire.table);
+		//remap body_home
+		body_home.attr("id","container");
+		Bonfire.table.attr("id","body_home");
 		Bonfire.redrawing=true;
 		Bonfire.redraw();
 		Bonfire.redrawing=false;
 	},
 	redraw: function()
 	{
-		$("#body_home div.line").each (function(i) {
+		$("#container div.line").each (function(i) {
 			num=this.id.replace("oldline","");
 			num=parseInt(num);
 			newMessagePostedToDisplay(num,"old");
@@ -50,15 +54,11 @@ $(window).load(function() { Bonfire.init(); })
 function render_time(time)
 {
 	var ts=new Date;
-	var diff=11;
-	if (Bonfire.last_ts)
-		diff=(ts-Bonfire.last_ts)/1000/60;
-	if (time && time!=Bonfire.last_time && diff>=10)
+	if (time && time!=Bonfire.last_time && ts.getMinutes()%10==0)
 	{
 		row=$("<tr class='time'><td></td><td>" + time + "</td></tr>");
 		Bonfire.table.append(row);
 		Bonfire.last_time=time;
-		Bonfire.last_ts=new Date;
 	}
 }
 
@@ -97,7 +97,7 @@ function newMessagePostedToDisplay(lineNumber, prefix)
 	if (prefix=="") {
 		newLine.attr("id","old" + id); }
 	row.attr("id",id);
-	newLine.hide();
+	newLine.remove();
 	// if (message.indexOf("is listening to")!=-1)
 	// {
 	// 	newLine.style.display="none";

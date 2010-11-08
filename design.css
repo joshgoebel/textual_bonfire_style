@@ -18,7 +18,7 @@ body {
 	font-family: "Lucida Grande";
 }
 
-body div#body_home {
+body div#container {
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -27,11 +27,11 @@ body div#body_home {
 	position: absolute;
 }
 
-body div#body_home div {
+body div#container div {
  	margin-top: -1px;
 }
 
-body div#body_home p {
+body div#container p {
 	clear: both;
 	position: relative;
 }
@@ -370,8 +370,8 @@ table.bf tr[type='part'] td { font-size:0.8em; color:#955; }
 table.bf tr[type='join'] td { font-size:0.8em; color:#595; }
 table.bf tr[type='nick'] td { font-size:0.8em; color:#666; }
 
-table.bf tr[type='mode'] td.nick { border-right:0; }
-table.bf tr[type='mode'] td.msg { border-left:0; }
+table.bf tr[type='topic'] td { border-right:0; border-left:0; }
+table.bf tr[type='mode'] td { border-right:0; border-left:0; }
 
 tr[type=action] .msg:before {
 	content: "\2022";
