@@ -56,7 +56,7 @@ $(window).load(function() { Bonfire.init(); })
 function render_time(time)
 {
 	var ts=new Date;
-	if (time && time!=Bonfire.last_time && ts.getMinutes()%10==0)
+	if (time && time!=Bonfire.last_time && (ts.getMinutes()%10)==0)
 	{
 		row=$("<tr class='time'><td></td><td>" + time + "</td></tr>");
 		Bonfire.table.append(row);
@@ -102,7 +102,7 @@ function newMessagePostedToDisplay(lineNumber)
 	// if (prefix=="") {
 	// 	newLine.attr("id","old" + id); }
 	// row.attr("id",id);
-	newLine.hide();
+	newLine.remove();
 	// if (message.indexOf("is listening to")!=-1)
 	// {
 	// 	newLine.style.display="none";

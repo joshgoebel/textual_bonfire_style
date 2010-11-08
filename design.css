@@ -301,6 +301,7 @@ table.bf td.nick
 }
 table.bf td.msg
 {
+	padding-left:8px;
 	width:93%;
 }
 
@@ -337,7 +338,7 @@ table.bf tr[type='part'] td { font-size:0.8em; color:#955; }
 table.bf tr[type='join'] td { font-size:0.8em; color:#595; }
 table.bf tr[type='nick'] td { font-size:0.8em; color:#666; }
 
-table.bf tr[type='topic'] td { border-right:0; border-left:0; }
+/*table.bf tr[type='topic'] td { border-right:0; border-left:0; }*/
 table.bf tr[type='mode'] td { border-right:0; border-left:0; }
 
 tr[type=action] .msg:before {
