@@ -251,25 +251,7 @@ body div[type=topic] {
     color: #aaa;
 }
 
-body div[type=join] .message:before {
-	content: "→";
-  	color: #0c0;
-  	margin-right: 3px;
-}
 
-body div[type=kick] .message:before,
-body div[type=part] .message:before,
-body div[type=quit] .message:before {
-	content: "←";
-  	color: #e00;
-  	margin-right: 3px;
-}
-
-body div[type=nick] .message:before {
-	content:"•";
-  	color: #0c0;
-  	margin-right: 3px;
-}
 
 body p[type=myself] .message {
 	color: #666 !important;
@@ -380,6 +362,26 @@ tr[type=action] .msg:before {
 
 tr[type=action] .msg:after {
 	content: "\2022";
+}
+
+tr[type=join] .msg:before {
+	content: "→";
+/*  	color: #0c0;*/
+  	margin-right: 3px;
+}
+
+tr[type=kick] .msg:before,
+tr[type=part] .msg:before,
+tr[type=quit] .msg:before {
+	content: "←";
+/*  	color: #e00;*/
+  	margin-right: 3px;
+}
+
+body div[type=nick] .message:before {
+	content:"•";
+  	color: #0c0;
+  	margin-right: 3px;
 }
 
 tr[type=privmsg][highlight=true] td,
