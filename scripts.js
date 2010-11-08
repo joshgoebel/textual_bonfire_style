@@ -5,43 +5,51 @@ function IncludeJavaScript(jsFile)
 }
 IncludeJavaScript("http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js");
 
-var Bonfire={};
-
-function rewrite_all()
-{
-	Bonfire.redrawing=true;
-	$("#body_home div.line").each (function(i) {
-		num=this.id.replace("oldline","");
-		num=parseInt(num);
-		newMessagePostedToDisplay(num,"old");
-	});
-	Bonfire.redrawing=false;
-}
-
-var table=$("<table class='bf'>");
-window.setTimeout( function(){$("#body_home").append(table);}, 50)
-window.setTimeout(rewrite_all, 100);
-
-function move_mark()
-{
-	// look for the div mark
-	mark=$("#body_home div#mark");
-	if (mark.size() > 0)
+var Bonfire={
+	init: function()
 	{
-		mark.remove();
-		$("#mymark").remove();
-		// and create our own row mark
-		row=$("<tr>").attr("id","mymark");
-		col=$("<td colspan='2'></td>").appendTo(row);
-		table.append(row);
+		// evidentally the page needs a second to render first
+		window.setTimeout(Bonfire.start, 50)
+	},
+	start: function()
+	{
+		Bonfire.table=$("<table class='bf'>");
+		$("#body_home").append(Bonfire.table);
+		Bonfire.redrawing=true;
+		Bonfire.redraw();
+		Bonfire.redrawing=false;
+	},
+	redraw: function()
+	{
+		$("#body_home div.line").each (function(i) {
+			num=this.id.replace("oldline","");
+			num=parseInt(num);
+			newMessagePostedToDisplay(num,"old");
+		});	
+	},
+	move_mark: function()
+	{
+		// look for the div mark
+		mark=$("#body_home div#mark");
+		if (mark.size() > 0)
+		{
+			mark.remove();
+			$("#mymark").remove();
+			// and create our own row mark
+			row=$("<tr>").attr("id","mymark");
+			col=$("<td colspan='2'></td>").appendTo(row);
+			Bonfire.table.append(row);
+		}
 	}
-}
+};
+
+$(window).load(function() { Bonfire.init(); })
 
 function newMessagePostedToDisplay(lineNumber, prefix)
 {
 	// move the mark
 	if (!Bonfire.redrawing)
-		move_mark();
+		Bonfire.move_mark();
 	
 	prefix=prefix || "";
 	look_for="#" + prefix + "line" + lineNumber;
@@ -65,13 +73,13 @@ function newMessagePostedToDisplay(lineNumber, prefix)
 		}
 	msg=$("<td>").html(message).addClass("msg");
 	row.append(sender).append(msg);
-	table.append(row);
+	Bonfire.table.append(row);
 	// rework ids
 	id=newLine.attr("id");
 	if (prefix=="") {
 		newLine.attr("id","old" + id); }
 	row.attr("id",id);
-	newLine.hide();
+	newLine.remove();
 	// if (message.indexOf("is listening to")!=-1)
 	// {
 	// 	newLine.style.display="none";
