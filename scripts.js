@@ -81,9 +81,11 @@ function newMessagePostedToDisplay(lineNumber)
 	var p=newLine.children("p"); // this is where the myself class is set
 	render_time(time);
 	row=$("<tr>");
-	row.addClass(newLine.className);
+	row.attr("class", newLine.attr("class"));
 	row.attr("type", newLine.attr("type"));
-	row.attr("highlight", newLine.attr("highlight"));
+	// row.attr("highlight", newLine.attr("highlight"));
+	if (newLine.attr("highlight")=="true")
+		row.addClass("highlight")
 	if (p.attr("type")=="myself")
 		row.addClass("myself");
 	sender=$("<td>").addClass("nick");

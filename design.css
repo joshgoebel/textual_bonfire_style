@@ -42,7 +42,7 @@ body .time {
 	color: #aaa;
 	text-indent: 0;
 	word-wrap: normal;
-	white-space: nowrap
+	white-space: nowrap;
 	display: inline-block;
 	text-transform:lowercase;
 }
@@ -159,22 +159,8 @@ body div[type=notice] .sender {
 
 /* PRIVMSG */
 
-body div[type=privmsg][highlight=false]  {
+body div[type=privmsg]  {
  	padding: 3px 5px 3px 5px;
-}
-
-body div[type=privmsg][highlight=true],
-body div[type=action][highlight=true] {
-	font-weight: normal;
- 	padding: 2px 5px 2px 5px;
-	border-top: 1px solid #F6E73F;
-	border-bottom: 1px solid #F6E73F;
-  	background-color: #FAF4AF !important;
-
-	font-weight:bold;
-	border-top: 1px solid #BEE35F;
-	border-bottom: 1px solid #BEE35F;
-  	background-color: #CF6 !important;
 }
 
 body div[type=privmsg] .message {
@@ -330,7 +316,13 @@ table.bf tr#mymark td {
 	border-top:1px solid white;
 	border-bottom:2px dotted red;
 }
-	
+
+table.bf tr.highlight[type=privmsg] td,
+table.bf tr.highlight[type=action] td,
+table.bf tr[type=privmsg][highlight=true] td,
+table.bf tr[type=action][highlight=true] td {
+	background:#CF6 !important;
+}
 
 table.bf tr[type='system'] td { 
 	background:#FC6;
@@ -366,7 +358,6 @@ tr[type=action] .msg:after {
 
 tr[type=join] .msg:before {
 	content: "→";
-/*  	color: #0c0;*/
   	margin-right: 3px;
 }
 
@@ -374,19 +365,12 @@ tr[type=kick] .msg:before,
 tr[type=part] .msg:before,
 tr[type=quit] .msg:before {
 	content: "←";
-/*  	color: #e00;*/
   	margin-right: 3px;
 }
 
-body div[type=nick] .message:before {
+tr[type=nick] .msg:before {
 	content:"•";
-  	color: #0c0;
   	margin-right: 3px;
-}
-
-tr[type=privmsg][highlight=true] td,
-tr[type=action][highlight=true] td{
-	background:#CF6;
 }
 
 table.bf tr.time td
