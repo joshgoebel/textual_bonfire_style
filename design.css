@@ -386,3 +386,13 @@ tr[type=privmsg][highlight=true] td,
 tr[type=action][highlight=true] td{
 	background:#CF6;
 }
+
+table.bf tr.time td
+{
+	padding-top:20px;
+	background:white;
+	font-size:0.75em;
+	color:#999;
+	border-left:0px;
+	border-right:0px;
+}

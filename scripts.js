@@ -46,6 +46,22 @@ var Bonfire={
 
 $(window).load(function() { Bonfire.init(); })
 
+// render a time stamp every 10 minutes
+function render_time(time)
+{
+	var ts=new Date;
+	var diff=11;
+	if (Bonfire.last_ts)
+		diff=(ts-Bonfire.last_ts)/1000/60;
+	if (time && time!=Bonfire.last_time && diff>=10)
+	{
+		row=$("<tr class='time'><td></td><td>" + time + "</td></tr>");
+		Bonfire.table.append(row);
+		Bonfire.last_time=time;
+		Bonfire.last_ts=new Date;
+	}
+}
+
 function newMessagePostedToDisplay(lineNumber, prefix)
 {
 	// move the mark
@@ -57,9 +73,10 @@ function newMessagePostedToDisplay(lineNumber, prefix)
 	var newLine = $(look_for);
 	var message=$("span.message", newLine).html();
 	var nick=$("span.sender", newLine).html();
+	var time=$("span.time", newLine).html();
 	// var p=$(look_for + " p");
 	var p=newLine.children("p");
-	// add_message(newLine);
+	render_time(time);
 	row=$("<tr>");
 	row.addClass(newLine.className);
 	row.attr("type", newLine.attr("type"));
