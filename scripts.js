@@ -15,8 +15,8 @@ var Bonfire={
 	start: function()
 	{
 		body_home=$("#body_home")
-		Bonfire.table=$("<table class='bf'>");
-		body_home.append(Bonfire.table);
+		Bonfire.table=$("<tbody/>").appendTo(outer=$("<table class='bf'>"));
+		body_home.append(outer);
 		//remap body_home
 		body_home.attr("id","container");
 		Bonfire.table.attr("id","body_home");
@@ -98,10 +98,9 @@ function newMessagePostedToDisplay(lineNumber)
 	row.append(sender).append(msg);
 	Bonfire.table.append(row);
 	// rework ids
-	// id=newLine.attr("id");
-	// if (prefix=="") {
-	// 	newLine.attr("id","old" + id); }
-	// row.attr("id",id);
+	id=newLine.attr("id");
+	newLine.attr("id",null);
+	row.attr("id",id);
 	newLine.remove();
 	// if (message.indexOf("is listening to")!=-1)
 	// {
