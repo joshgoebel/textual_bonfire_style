@@ -52,11 +52,11 @@ var Bonfire={
 
 $(window).load(function() { Bonfire.init(); })
 
-// render a time stamp every 10 minutes
+// render a time stamp every 5 minutes
 function render_time(time)
 {
 	var ts=new Date;
-	if (time && time!=Bonfire.last_time && (ts.getMinutes()%10)==0)
+	if (time && time!=Bonfire.last_time && (ts.getMinutes()%5)==0)
 	{
 		row=$("<tr class='time'><td></td><td>" + time + "</td></tr>");
 		Bonfire.table.append(row);
