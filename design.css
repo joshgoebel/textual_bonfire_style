@@ -273,6 +273,7 @@ table.bf
 {
 	width:100%;
 	border-collapse:collapse;
+	border-spacing:0px;
 }
 
 table.bf tr.myself td
