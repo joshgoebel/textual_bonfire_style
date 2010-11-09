@@ -56,11 +56,14 @@ $(window).load(function() { Bonfire.init(); })
 function render_time(time)
 {
 	var ts=new Date;
-	if (time && time!=Bonfire.last_time && (ts.getMinutes()%5)==0)
+	if (Bonfire.last_time)
+		diff=(ts-Bonfire.last_time)/1000/60; // minutes
+	// if a new window or haven't printed a timestamp in the past 5 minutes
+	if (Bonfire.last_time==null || diff>5)
 	{
 		row=$("<tr class='time'><td></td><td>" + time + "</td></tr>");
 		Bonfire.table.append(row);
-		Bonfire.last_time=time;
+		Bonfire.last_time=ts;
 	}
 }
 
