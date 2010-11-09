@@ -272,7 +272,7 @@ body p[type=myself] .message {
 table.bf
 {
 	width:100%;
-	border-collapse:collapse;
+	border-collapse:separate;
 	border-spacing:0px;
 }
 
@@ -281,16 +281,17 @@ table.bf tr.myself td
 	background:#ffc;
 }
 
-table.bf td { 
-	border:1px solid #eee; 
-	padding:5px;
+table.bf td {
+	border-bottom:1px solid #eee;
+	padding:5px 6px;
 }
+
 table.bf td.nick
 {
 	text-align:right;
 	vertical-align:top;
 	font-weight:bold;
-	background:#efefef;
+	background:#eee;
 	border-right:1px solid #ccc;
 	width:7%;
 	color:#444;
@@ -370,7 +371,7 @@ tr[type=nick] .msg:before {
 
 table.bf tr.time td
 {
-	padding-top:20px;
+	padding-top:15px;
 	background:white;
 	font-size:0.75em;
 	color:#999;
