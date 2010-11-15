@@ -84,6 +84,7 @@ function newMessagePostedToDisplay(lineNumber)
 	var p=newLine.children("p"); // this is where the myself class is set
 	render_time(time);
 	row=$("<tr>");
+	row.attr("nick", newLine.attr("nick"));
 	row.attr("class", newLine.attr("class"));
 	row.attr("type", newLine.attr("type"));
 	// row.attr("highlight", newLine.attr("highlight"));
@@ -95,6 +96,7 @@ function newMessagePostedToDisplay(lineNumber)
 	if (nick && nick!=Bonfire.last_nick)
 		{
 			sender.html(nick);
+			sender[0].oncontextmenu = function() { on_nick() }; 
 			Bonfire.last_nick=nick;
 		}
 	msg=$("<td>").html(message).addClass("msg");
@@ -120,4 +122,4 @@ function newMessagePostedToDisplay(lineNumber)
 function on_url() { app.setUrl(event.target.innerHTML); }
 function on_addr() { app.setAddr(event.target.innerHTML); }
 function on_chname() { app.setChan(event.target.innerHTML); }
-function on_nick() { app.setNick(event.target.parentNode.parentNode.getAttribute('nick')); }
+function on_nick() { app.setNick(event.target.parentNode.getAttribute('nick')); }
