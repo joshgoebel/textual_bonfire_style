@@ -269,6 +269,8 @@ body p[type=myself] .message {
 
 /* campfire */
 
+div#body_home div.line { display:none; }
+
 table.bf
 {
 	width:100%;
