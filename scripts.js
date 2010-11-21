@@ -8,7 +8,7 @@ var Bonfire={
 			return;
 		Bonfire.initing=true;
 		// evidentally the page needs a second to render first
-		Textual.include_js("jquery.min.js");
+		Textual.include_js("jquery.tiny.js");
 		window.setTimeout(Bonfire.start, 25);
 	},
 	start: function()
