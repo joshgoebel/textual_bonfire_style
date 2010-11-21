@@ -1,4 +1,6 @@
 Textual.include_js("jquery.min.js");
+setTimeout(function() { Bonfire.init(); },10)
+// $(window).load(function() { Bonfire.init(); })
 
 var Bonfire={
 	init: function()
@@ -43,8 +45,6 @@ var Bonfire={
 		}
 	}
 };
-
-$(window).load(function() { Bonfire.init(); })
 
 // render a time stamp every 5 minutes
 function render_time(time)
