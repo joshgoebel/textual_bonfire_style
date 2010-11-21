@@ -1,12 +1,15 @@
-Textual.include_js("jquery.min.js");
-setTimeout(function() { Bonfire.init(); },10)
+// setTimeout(function() { Bonfire.init(); },10)
 // $(window).load(function() { Bonfire.init(); })
 
 var Bonfire={
 	init: function()
 	{
+		if (Bonfire.initing)
+			return;
+		Bonfire.initing=true;
 		// evidentally the page needs a second to render first
-		window.setTimeout(Bonfire.start, 25)
+		Textual.include_js("jquery.min.js");
+		window.setTimeout(Bonfire.start, 25);
 	},
 	start: function()
 	{
@@ -64,6 +67,7 @@ function render_time(time)
 Textual.newMessagePostedToDisplay=function(lineNumber)
 {
 	if (!Bonfire.started) {
+		Bonfire.init();
 		// window.setTimeout( function() { newMessagePostedToDisplay(lineNumber)}, 50);
 		return;
 	}
