@@ -1,10 +1,4 @@
-function IncludeJavaScript(jsFile)
-{
-  document.write('<script type="text/javascript" src="'
-    + jsFile + '"></scr' + 'ipt>'); 
-}
-// IncludeJavaScript("http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js");
-IncludeJavaScript("jquery.min.js");
+Textual.include_js("jquery.min.js");
 
 var Bonfire={
 	init: function()
@@ -31,7 +25,7 @@ var Bonfire={
 		$("#container div.line").each (function(i) {
 			num=this.id.replace("line","");
 			num=parseInt(num);
-			newMessagePostedToDisplay(num);
+			Textual.newMessagePostedToDisplay(num);
 		});	
 	},
 	move_mark: function()
@@ -67,7 +61,7 @@ function render_time(time)
 	}
 }
 
-function newMessagePostedToDisplay(lineNumber)
+Textual.newMessagePostedToDisplay=function(lineNumber)
 {
 	if (!Bonfire.started) {
 		// window.setTimeout( function() { newMessagePostedToDisplay(lineNumber)}, 50);
@@ -96,7 +90,7 @@ function newMessagePostedToDisplay(lineNumber)
 	if (nick && nick!=Bonfire.last_nick)
 		{
 			sender.html(nick);
-			sender[0].oncontextmenu = function() { on_nick() }; 
+			sender[0].oncontextmenu = function() { Textual.on_nick() }; 
 			Bonfire.last_nick=nick;
 		}
 	msg=$("<td>").html(message).addClass("msg");
@@ -118,8 +112,5 @@ function newMessagePostedToDisplay(lineNumber)
 	// }
 }
 
-/* The following function calls are required. Add additonal code above it. */
-function on_url() { app.setUrl(event.target.innerHTML); }
-function on_addr() { app.setAddr(event.target.innerHTML); }
-function on_chname() { app.setChan(event.target.innerHTML); }
+// Textual.on_nick=function() { app.setNick(event.target.parentNode.getAttribute('nick')); }
 function on_nick() { app.setNick(event.target.parentNode.getAttribute('nick')); }
