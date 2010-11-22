@@ -304,6 +304,12 @@ table.bf td.nick
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+table.bf td.nick.hidden
+{
+	color:transparent;
+}
+
 table.bf td.msg
 {
 	padding-left:8px;

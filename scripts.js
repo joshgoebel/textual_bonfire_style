@@ -46,6 +46,59 @@ var Bonfire={
 			col=$("<td colspan='2'></td>").appendTo(row);
 			Bonfire.table.append(row);
 		}
+	},
+	// back out our changes and prepare for a theme change
+	rollback: function()
+	{
+		var time,when,container,row,kids,col1,col2,line,p,time,sender,message;
+		when="";
+		container=$("#container");
+		Bonfire.table.attr("id",null)
+		container.attr('id',"body_home")
+		$("tr",Bonfire.table).each(function(i){
+			row=$(this);
+			kids=row.children();
+			col1=kids.first();
+			col2=kids.last();
+			// fetch time from a time row
+			if (row.hasClass("time")) {
+				when=col2.html();
+				row.remove();
+				return;
+			}
+
+			// setup a new line
+			line=$("<div>").attr("id", this.id).addClass("line");
+			line.attr("alternate", row.attr("alternate"));
+			line.attr("nick", row.attr("nick"));
+			line.attr("type", row.attr("type"));
+			p=$("<p>").appendTo(line);
+			if (row.hasClass("highlight")) { 
+				line.attr("highlight","true"); 
+			} else { 
+				line.attr("highlight","false"); }
+			
+			// add time back
+			time=$("<span class='time'>").appendTo(p).html(when);
+			
+			// add sender
+			sender=$("<span class='sender'>").appendTo(p).html(col1.html());
+			if (row.hasClass("myself")) {
+				p.addClass("myself");
+				sender.addClass("myself");
+			}
+			sender.attr("first",col1.attr("first"));
+			sender.attr("identified",col1.attr("identified"));
+			sender.attr("type",col1.attr("type"));
+			
+			sender[0].oncontextmenu = function() { Textual.on_nick() };
+			message=$("<span class='message'>").appendTo(p);
+			message.html(col2.html());
+			message.attr("type", col2.attr("type"));
+			container.append(line);
+			row.remove();
+		});
+		Bonfire.table.remove();
 	}
 };
 
@@ -76,28 +129,33 @@ Textual.newMessagePostedToDisplay=function(lineNumber)
 		Bonfire.move_mark();
 	
 	var newLine = $("#line" + lineNumber);
-	var message=$("span.message", newLine).html();
-	var nick=$("span.sender", newLine).html();
+	var message=$("span.message", newLine);
+	var sndr=$("span.sender", newLine);
+	var nick=sndr.html();
 	var time=$("span.time", newLine).html();
 	var p=newLine.children("p"); // this is where the myself class is set
 	render_time(time);
 	row=$("<tr>");
 	row.attr("nick", newLine.attr("nick"));
 	row.attr("class", newLine.attr("class"));
+	row.attr("alternate", newLine.attr("alternate"));
 	row.attr("type", newLine.attr("type"));
-	// row.attr("highlight", newLine.attr("highlight"));
 	if (newLine.attr("highlight")=="true")
 		row.addClass("highlight")
 	if (p.attr("type")=="myself")
 		row.addClass("myself");
-	sender=$("<td>").addClass("nick");
-	if (nick && nick!=Bonfire.last_nick)
-		{
-			sender.html(nick);
+	sender=$("<td>").addClass("nick").html(nick);;
+	sender.attr("type", sndr.attr("type"));
+	sender.attr("first", sndr.attr("first"));
+	sender.attr("identified", sndr.attr("identified"));
+	if (nick && nick!=Bonfire.last_nick) {
 			sender[0].oncontextmenu = function() { Textual.on_nick() }; 
 			Bonfire.last_nick=nick;
-		}
-	msg=$("<td>").html(message).addClass("msg");
+	} else {
+		sender.addClass("hidden");
+	}
+	msg=$("<td>").html(message.html()).addClass("msg");
+	msg.attr("type", message.attr("type"));
 	row.append(sender).append(msg);
 	Bonfire.table.append(row);
 	// rework ids
@@ -115,6 +173,9 @@ Textual.newMessagePostedToDisplay=function(lineNumber)
 	// 	message.style.color="#999";
 	// }
 }
+
+Textual.willDoThemeChange = function() { Bonfire.rollback(); },
+Textual.doneThemeChange = function() { Bonfire.init(); },
 
 // Textual.on_nick=function() { app.setNick(event.target.parentNode.getAttribute('nick')); }
 function on_nick() { app.setNick(event.target.parentNode.getAttribute('nick')); }
