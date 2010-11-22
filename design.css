@@ -278,14 +278,15 @@ table.bf
 	border-spacing:0px;
 }
 
-table.bf tr.myself td
-{
-	background:#ffc;
-}
-
 table.bf td {
 	border-bottom:1px solid #eee;
 	padding:5px 6px;
+}
+
+table.bf tr.myself td
+{
+	background:#ffc;
+	border-bottom:0px;
 }
 
 table.bf td.nick
