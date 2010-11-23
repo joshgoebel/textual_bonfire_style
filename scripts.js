@@ -22,8 +22,31 @@ var Bonfire={
 		Bonfire.started=true;
 		
 		Bonfire.redrawing=true;
+		// cap the link width based on the window size before we redraw
+		Bonfire.cap_link_width();
 		Bonfire.redraw();
 		Bonfire.redrawing=false;
+		// recalculate the link width after resizing the window
+		window.addEventListener("resize", Bonfire.cap_link_width);
+		// recalculate the link width after we hopefully have some content
+		window.setTimeout(Bonfire.cap_link_width, 30000);
+	},
+	cap_link_width:function()
+	{
+		var width, column, style_fixes;
+		column=$("tr:first-child td",Bonfire.table).first();
+		// if we have any columns in the table, use those
+		if (column.length!=0) {
+			// use offsetWidth to avoid needing the full jquery library
+			width=$(window).width()-column[0].offsetWidth;
+			width=Math.ceil(width*0.85);
+		} else {
+			width=Math.ceil($(window).width()*0.6); }
+		// look for our fixes stylesheet
+		style_fixes=$("head style#fixes");
+		if (style_fixes.length==0) // if we can't find it then, create it
+			style_fixes=$("<style id='fixes'>").appendTo($("head"));		
+		style_fixes.html("table.bf td.msg a { max-width:" + width + "px; }")
 	},
 	redraw: function()
 	{

@@ -316,6 +316,14 @@ table.bf td.msg
 	width:93%;
 }
 
+table.bf tr td.msg a
+{
+	display:inline-block;
+	white-space:nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 table.bf tr#mymark td { 
 	padding:0px !important; 
 	border-top:1px solid white;
