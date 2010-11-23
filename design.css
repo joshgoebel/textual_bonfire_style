@@ -314,6 +314,8 @@ table.bf td.msg
 {
 	padding-left:8px;
 	width:93%;
+	/* prevent long text */
+	word-break: break-all;
 }
 
 table.bf tr td.msg a
