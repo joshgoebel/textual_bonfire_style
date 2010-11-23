@@ -89,6 +89,9 @@ var Bonfire={
 				row.remove();
 				return;
 			}
+			if (row[0].id=="mymark") {
+				$("<div id='mark'>").appendTo(container);
+			}
 
 			// setup a new line
 			line=$("<div>").attr("id", this.id).addClass("line");
