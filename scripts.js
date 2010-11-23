@@ -84,9 +84,10 @@ var Bonfire={
 			// add sender
 			sender=$("<span class='sender'>").appendTo(p).html(col1.html());
 			if (row.hasClass("myself")) {
-				p.addClass("myself");
+				p.attr("type","myself");
 				sender.addClass("myself");
 			}
+			sender.attr("colornumber",col1.attr("colornumber"));
 			sender.attr("first",col1.attr("first"));
 			sender.attr("identified",col1.attr("identified"));
 			sender.attr("type",col1.attr("type"));
@@ -147,6 +148,7 @@ Textual.newMessagePostedToDisplay=function(lineNumber)
 	sender=$("<td>").addClass("nick").html(nick);;
 	sender.attr("type", sndr.attr("type"));
 	sender.attr("first", sndr.attr("first"));
+	sender.attr("colornumber", sndr.attr("colornumber"));
 	sender.attr("identified", sndr.attr("identified"));
 	if (nick && nick!=Bonfire.last_nick) {
 			sender[0].oncontextmenu = function() { Textual.on_nick() }; 
