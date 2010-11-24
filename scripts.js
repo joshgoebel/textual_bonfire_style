@@ -202,8 +202,8 @@ Textual.newMessagePostedToDisplay=function(lineNumber)
 	// }
 }
 
-Textual.willDoThemeChange = function() { Bonfire.rollback(); },
-Textual.doneThemeChange = function() { Bonfire.init(); },
+Textual.willDoThemeChange = function() { Bonfire.rollback(); }
+Textual.doneThemeChange = function() { Bonfire.init(); }
 
 // Textual.on_nick=function() { app.setNick(event.target.parentNode.getAttribute('nick')); }
 function on_nick() { app.setNick(event.target.parentNode.getAttribute('nick')); }
