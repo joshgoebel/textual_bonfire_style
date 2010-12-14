@@ -297,8 +297,8 @@ table.bf td.nick
 	font-weight:bold;
 	background:#eee;
 	border-right:1px solid #ccc;
-	width:7%;
-	color:#444;
+	width:15%;
+	color:#555;
 	white-space:nowrap;
 	
 	max-width:12em;
@@ -314,7 +314,7 @@ table.bf td.nick.hidden
 table.bf td.msg
 {
 	padding-left:8px;
-	width:93%;
+	width:85%;
 }
 
 table.bf tr td.msg a

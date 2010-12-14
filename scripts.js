@@ -46,7 +46,9 @@ var Bonfire={
 		style_fixes=$("head style#fixes");
 		if (style_fixes.length==0) // if we can't find it then, create it
 			style_fixes=$("<style id='fixes'>").appendTo($("head"));		
-		style_fixes.html("table.bf td.msg a { max-width:" + width + "px; }")
+		css="table.bf td.msg a { max-width:" + width + "px; }\n";
+		css+="table.bf { max-width: " + $(window).width() + "px }";
+		style_fixes.html(css)
 	},
 	redraw: function()
 	{
