@@ -286,6 +286,7 @@ table.bf td {
 table.bf tr.myself td
 {
 	background:#ffc;
+/*	background:red;*/
 	border-bottom:0px;
 }
 
@@ -344,7 +345,12 @@ table.bf tr[type='system'] td {
 	border-bottom:1px solid #D6A95A;
 }
 table.bf tr[type='notice'] td.msg { color:#963; }
-table.bf tr[type='reply'] td.msg { color:#060; }
+table.bf tr[type='reply'] td.msg { 
+	color:#060; 
+	font-size:0.8em;
+	background:#F2F7EA;
+	}
+/*table.bf tr[type='reply'] td.msg:before { content: "\2022 "; }*/
 
 table.bf tr[type='mode'] td,
 table.bf tr[type='topic'] td
