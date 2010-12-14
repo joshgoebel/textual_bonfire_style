@@ -95,7 +95,6 @@ var Bonfire={
 
 			// setup a new line
 			line=$("<div>").attr("id", this.id).addClass("line");
-			line.attr("alternate", row.attr("alternate"));
 			line.attr("nick", row.attr("nick"));
 			line.attr("type", row.attr("type"));
 			p=$("<p>").appendTo(line);
@@ -114,7 +113,6 @@ var Bonfire={
 				sender.addClass("myself");
 			}
 			sender.attr("colornumber",col1.attr("colornumber"));
-			sender.attr("first",col1.attr("first"));
 			sender.attr("identified",col1.attr("identified"));
 			sender.attr("type",col1.attr("type"));
 			
@@ -165,7 +163,6 @@ Textual.newMessagePostedToDisplay=function(lineNumber)
 	row=$("<tr>");
 	row.attr("nick", newLine.attr("nick"));
 	row.attr("class", newLine.attr("class"));
-	row.attr("alternate", newLine.attr("alternate"));
 	row.attr("type", newLine.attr("type"));
 	if (newLine.attr("highlight")=="true")
 		row.addClass("highlight")
@@ -173,7 +170,6 @@ Textual.newMessagePostedToDisplay=function(lineNumber)
 		row.addClass("myself");
 	sender=$("<td>").addClass("nick").html(nick);;
 	sender.attr("type", sndr.attr("type"));
-	sender.attr("first", sndr.attr("first"));
 	sender.attr("colornumber", sndr.attr("colornumber"));
 	sender.attr("identified", sndr.attr("identified"));
 	if (nick && nick!=Bonfire.last_nick) {
