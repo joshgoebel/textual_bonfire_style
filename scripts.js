@@ -8,11 +8,30 @@ var Bonfire={
 			return;
 		Bonfire.initing=true;
 		// evidentally the page needs a second to render first
-		Textual.include_js("jquery.tiny.js");
+    // Textual.include_js("jquery.tiny.js");
+		Textual.include_js("zepto.tiny.js");
 		window.setTimeout(Bonfire.start, 25);
+	},
+	fixup_zepto: function()
+	{
+	  // have to hack a zepto function becase we are not an IOS device
+	  $.fn.offset = function(){
+	    var obj;
+      if(this.length==0) return null;
+      try {
+      obj = this[0].getBoundingClientRect();
+      } catch (e) { obj = { left:0, top: 0} }
+      return {
+        left: obj.left + document.body.scrollLeft,
+        top: obj.top + document.body.scrollTop,
+        width: obj.width,
+        height: obj.height
+      };
+    },
 	},
 	start: function()
 	{
+	  Bonfire.fixup_zepto();
 		body_home=$("#body_home")
 		Bonfire.table=$("<tbody/>").appendTo(outer=$("<table class='bf'>"));
 		body_home.append(outer);
