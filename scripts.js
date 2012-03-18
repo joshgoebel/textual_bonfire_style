@@ -9,7 +9,8 @@ var Bonfire={
 		Bonfire.initing=true;
 		// evidentally the page needs a second to render first
     // Textual.include_js("jquery.tiny.js");
-		Textual.include_js("zepto.tiny.js");
+    // Textual.include_js("zepto.tiny.js");
+    Textual.include_js("zepto8.tiny.js");
 		window.setTimeout(Bonfire.start, 25);
 	},
 	fixup_zepto: function()
@@ -27,7 +28,7 @@ var Bonfire={
         width: obj.width,
         height: obj.height
       };
-    },
+    }
 	},
 	start: function()
 	{
