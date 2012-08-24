@@ -1,7 +1,11 @@
 # Bonfire
 
 Bonfire is a nice and light theme for Textual based around the same asthetics as
-37signals' popular [Campfire](http://campfirenow.com) chat web service.
+37signals' popular [Campfire](http://campfirenow.com) chat web service.  Dark sides
+can be turned on and off with `Darken main window colors` check box in preferences.
+I just happen to like them dark, so that's what I used for the sample snap.
+
+![What it looks like](https://raw.github.com/yyyc514/textual_bonfire_style/master/bonfire_snap.png)
 
 ## Textual 2.1.1
 
