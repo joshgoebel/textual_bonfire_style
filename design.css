@@ -380,9 +380,9 @@ table.bf tr[type='website'] td
 	background:#d9e7fb;
 	border-bottom:1px solid #C8D9F2;
 }
-table.bf tr[type='quit'] td { font-size:0.8em; color:#923F43; }
-table.bf tr[type='part'] td { font-size:0.8em; color:#923F43; }
-table.bf tr[type='join'] td { font-size:0.8em; color:#4B8949; }
+table.bf tr[type='quit'] td { font-size:0.8em; color:#999; }
+table.bf tr[type='part'] td { font-size:0.8em; color:#999; }
+table.bf tr[type='join'] td { font-size:0.8em; color:#696; }
 table.bf tr[type='nick'] td { font-size:0.8em; color:#666; }
 
 /*table.bf tr[type='topic'] td { border-right:0; border-left:0; }*/
@@ -397,16 +397,28 @@ tr[type=action] .message:after {
 	content: "\2022";
 }
 
-tr[type=join] .message:before {
+tr[type=join] td:first-child:before ,
+tr[type=join] .xmessage:before {
 	content: "→";
   	margin-right: 3px;
 }
+tr[type=join] td:first-child { text-align:right; padding-right:0; }
 
-tr[type=kick] .message:before,
-tr[type=part] .message:before,
-tr[type=quit] .message:before {
+tr[type=kick] td:first-child:before,
+tr[type=part] td:first-child:before,
+tr[type=quit] td:first-child:before,
+tr[type=kick] .xmessage:before,
+tr[type=part] .xmessage:before,
+tr[type=quit] .xmessage:before {
 	content: "←";
   	margin-right: 3px;
+}
+
+tr[type=kick] td:first-child,
+tr[type=part] td:first-child,
+tr[type=quit] td:first-child
+{
+  text-align:right; padding-right:0;
 }
 
 tr[type=nick] .message:before {
