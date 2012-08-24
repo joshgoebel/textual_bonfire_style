@@ -1,3 +1,2 @@
 * Make sure the history indicator works properly
-* Fix sssssssssssssssssssssssssssssssssssssssuperrrrrrrrrrrrr long strings from jamming things up
 * Make sure we honor the scrollback limits

@@ -1,3 +1,5 @@
+# Copyright © 2010, 2011, 2012 Josh Goebel
+
 class @Renderer
   constructor: (@table, @input) ->
     @table.hide()

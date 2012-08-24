@@ -1,3 +1,9 @@
+/*
+
+Copyright © 2010, 2011, 2012 Josh Goebel
+
+*/ 
+
 // setTimeout(function() { Bonfire.init(); },10)
 // $(window).load(function() { Bonfire.init(); })
 
