@@ -6,7 +6,8 @@ var Bonfire={
 	{
 		if (Bonfire.initing)
 			return;
-		Bonfire.initing=true;
+		Bonfire.redrawn = 0;
+		Bonfire.initing = true;
 		// evidentally the page needs a second to render first
     // Textual.include_js("jquery.tiny.js");
     // Textual.include_js("zepto.tiny.js");
@@ -32,24 +33,23 @@ var Bonfire={
 	},
 	start: function()
 	{
+	  console.log("start");
 	  Bonfire.fixup_zepto();
-		body_home=$("#body_home")
-		Bonfire.table=$("<tbody/>").appendTo(outer=$("<table class='bf'>"));
-		body_home.append(outer);
+		Bonfire.dump=$("#body_home");
+		Bonfire.table=$("#thelog");
+		Bonfire.table.hide();
 		//remap body_home
-		body_home.attr("id","container");
-		Bonfire.table.attr("id","body_home");
+    // body_home.attr("id","container");
+    // Bonfire.table.attr("id","body_home");
 		Bonfire.started=true;
 		
-		Bonfire.redrawing=true;
 		// cap the link width based on the window size before we redraw
-		Bonfire.cap_link_width();
-		Bonfire.redraw();
-		Bonfire.redrawing=false;
+    // Bonfire.cap_link_width();
+    Bonfire.redraw();
 		// recalculate the link width after resizing the window
-		window.addEventListener("resize", Bonfire.cap_link_width);
+    // window.addEventListener("resize", Bonfire.cap_link_width);
 		// recalculate the link width after we hopefully have some content
-		window.setTimeout(Bonfire.cap_link_width, 30000);
+    // window.setTimeout(Bonfire.cap_link_width, 30000);
 	},
 	cap_link_width:function()
 	{
@@ -70,13 +70,37 @@ var Bonfire={
 		css+="table.bf { max-width: " + $(window).width() + "px }";
 		style_fixes.html(css)
 	},
+	done_drawing: function()
+	{
+	  Bonfire.redrawing=false;
+	  Bonfire.table.show();
+	  Bonfire.cap_link_width();
+	  Textual.scrollToBottomOfView();
+	  // try it after we have some content
+	  window.setTimeout(Bonfire.cap_link_width, 30000);
+	  window.addEventListener("resize", Bonfire.cap_link_width);
+	},
 	redraw: function()
 	{
-		$("#container div.line").each (function(i) {
+	  Bonfire.redrawing=true;
+	  Bonfire.render_nothing = Bonfire.render_nothing || 0;
+	  console.log("redraw");
+    // console.log(Bonfire.dump.html());
+    var lines = Bonfire.dump.find("table tr.line");
+		lines.each (function(i) {
+		  Bonfire.redrawn += 1;
 			num=this.id.replace("line","");
 			num=parseInt(num);
-			Textual.newMessagePostedToDisplay(num);
-		});	
+			Textual.newMessagePostedToView(num, true);
+		});
+		if (lines.length==0 && Bonfire.redrawn > 0)
+		  Bonfire.render_nothing += 1;
+		// keep looping till we've chewed thru the backlog
+		if (Bonfire.render_nothing <= 3){
+		  window.setTimeout(Bonfire.redraw, 50);
+		} else {
+		  Bonfire.done_drawing();
+		}
 	},
 	move_mark: function()
 	{
@@ -91,67 +115,13 @@ var Bonfire={
 			col=$("<td colspan='2'></td>").appendTo(row);
 			Bonfire.table.append(row);
 		}
-	},
-	// back out our changes and prepare for a theme change
-	rollback: function()
-	{
-		var time,when,container,row,kids,col1,col2,line,p,time,sender,message;
-		when="";
-		container=$("#container");
-		Bonfire.table.attr("id",null)
-		container.attr('id',"body_home")
-		$("tr",Bonfire.table).each(function(i){
-			row=$(this);
-			kids=row.children();
-			col1=kids.first();
-			col2=kids.last();
-			// fetch time from a time row
-			if (row.hasClass("time")) {
-				when=col2.html();
-				row.remove();
-				return;
-			}
-			if (row[0].id=="mymark") {
-				$("<div id='mark'>").appendTo(container);
-			}
-
-			// setup a new line
-			line=$("<div>").attr("id", this.id).addClass("line");
-			line.attr("nick", row.attr("nick"));
-			line.attr("type", row.attr("type"));
-			p=$("<p>").appendTo(line);
-			if (row.hasClass("highlight")) { 
-				line.attr("highlight","true"); 
-			} else { 
-				line.attr("highlight","false"); }
-			
-			// add time back
-			time=$("<span class='time'>").appendTo(p).html(when);
-			
-			// add sender
-			sender=$("<span class='sender'>").appendTo(p).html(col1.html());
-			if (row.hasClass("myself")) {
-				p.attr("type","myself");
-				sender.addClass("myself");
-			}
-			sender.attr("colornumber",col1.attr("colornumber"));
-			sender.attr("identified",col1.attr("identified"));
-			sender.attr("type",col1.attr("type"));
-			
-			sender[0].oncontextmenu = function() { Textual.on_nick() };
-			message=$("<span class='message'>").appendTo(p);
-			message.html(col2.html());
-			message.attr("type", col2.attr("type"));
-			container.append(line);
-			row.remove();
-		});
-		Bonfire.table.remove();
 	}
 };
 
 // render a time stamp every 5 minutes
 function render_time(time)
 {
+  var row;
 	var ts=new Date;
 	if (Bonfire.last_time)
 		diff=(ts-Bonfire.last_time)/1000/60; // minutes
@@ -159,69 +129,74 @@ function render_time(time)
 	if (Bonfire.last_time==null || diff>5)
 	{
 		row=$("<tr class='time'><td></td><td>" + time + "</td></tr>");
+		// nick doesn't count as a repeat if a timestamp separates it
+		Bonfire.last_nick=null;
 		Bonfire.table.append(row);
 		Bonfire.last_time=ts;
 	}
 }
-
-Textual.newMessagePostedToDisplay=function(lineNumber)
+Textual.newMessagePostedToView=function(lineNumber,backlog)
 {
+  var row, time;
+  // window.console.log("new message posted:" + lineNumber);
 	if (!Bonfire.started) {
+	  window.console.warn("bonfire is not started yet")
 		Bonfire.init();
-		// window.setTimeout( function() { newMessagePostedToDisplay(lineNumber)}, 50);
 		return;
 	}
 	// move the mark
 	if (!Bonfire.redrawing)
 		Bonfire.move_mark();
-	
-	var newLine = $("#line" + lineNumber);
-	var message=$("span.message", newLine);
-	var sndr=$("span.sender", newLine);
-	var nick=sndr.html();
-	var time=$("span.time", newLine).html();
-	var p=newLine.children("p"); // this is where the myself class is set
-	render_time(time);
-	row=$("<tr>");
-	row.attr("nick", newLine.attr("nick"));
-	row.attr("class", newLine.attr("class"));
-	row.attr("type", newLine.attr("type"));
-	if (newLine.attr("highlight")=="true")
-		row.addClass("highlight")
-	if (p.attr("type")=="myself")
-		row.addClass("myself");
-	sender=$("<td>").addClass("nick").html(nick);;
-	sender.attr("type", sndr.attr("type"));
-	sender.attr("colornumber", sndr.attr("colornumber"));
-	sender.attr("identified", sndr.attr("identified"));
+	if (Bonfire.redrawing && !backlog)
+	  return;
+  
+  row = Bonfire.dump.find("#line" + lineNumber);
+  if (row[0]==null) {
+    console.error("can not find line" + lineNumber );
+    setTimeout(Bonfire.redraw, 100);
+  }
+    
+  
+  // render time
+  time = row.find("span.time");
+  render_time(time.html());
+  time.remove();
+  
+  // hide same nick in a row
+  var sender = row.find("span.sender");
+	var nick=sender.html();
 	if (nick && nick!=Bonfire.last_nick) {
-			sender[0].oncontextmenu = function() { Textual.on_nick() }; 
+      // sender[0].oncontextmenu = function() { Textual.on_nick() }; 
 			Bonfire.last_nick=nick;
 	} else {
-		sender.addClass("hidden");
+		sender.remove();
 	}
-	msg=$("<td>").html(message.html()).addClass("msg");
-	msg.attr("type", message.attr("type"));
-	row.append(sender).append(msg);
-	Bonfire.table.append(row);
-	// rework ids
-	id=newLine.attr("id");
-	newLine.attr("id",null);
-	row.attr("id",id);
-	newLine.remove();
-	// if (message.indexOf("is listening to")!=-1)
-	// {
-	// 	newLine.style.display="none";
-	// }
-	// if (message.indexOf("Teaser profile for ")!=-1)
-	// {
-	// 	newLine.style.fontSize="12px";
-	// 	message.style.color="#999";
-	// }
+	
+	// highlight our own rows
+	var p=row.find("p"); // this is where the myself class is set
+	if (p.attr("type")=="myself")
+		row.addClass("myself");
+		
+  // move the row
+  row.parent().parent().remove();
+  Bonfire.table.append(row);
+  // window.console.log("after move");
 }
 
-Textual.willDoThemeChange = function() { Bonfire.rollback(); }
-Textual.doneThemeChange = function() { Bonfire.init(); }
+// replace Textual mark with our own
+Textual.historyIndicatorAddedToView = function()
+{
+  Bonfire.move_mark();
+}
 
-// Textual.on_nick=function() { app.setNick(event.target.parentNode.getAttribute('nick')); }
-Textual.on_nick = function() { app.setNick(event.target.parentNode.getAttribute('nick')); }
+Textual.viewFinishedLoading = function() 
+{ 
+  console.log("viewFinishedLoading");
+  Bonfire.init(); 
+}
+  
+Textual.viewFinishedReload = function() 
+{ 
+  console.log("viewFinishedReload");
+  Bonfire.init(); 
+}

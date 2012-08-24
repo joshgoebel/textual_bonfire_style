@@ -1,20 +1,8 @@
-<table>
-<tr type="{{lineType}}" 
-	highlight="{{highlightAttributeRepresentation}}" 
-	class="line {{lineClassAttributeRepresentation}}" 
-	id="line{{lineNumber}}">
-
-	<td class="nick">
-  	<span class="sender"
-  		ondblclick="Textual.nicknameDoubleClicked()" 
-  		oncontextmenu="Textual.openStandardNicknameContextualMenu()" 
-  		type="{{nicknameType}}" 
-  		nick="{{nickname}}" 
-  		{{#nicknameColorHashingEnabled}} 
-  			colornumber="{{nicknameColorNumber}}"
-  		{{/nicknameColorHashingEnabled}}>{{formattedNickname}}</span>
-	</td>
-		<td class="msg">
+<div 	type="{{lineType}}" 
+		highlight="{{highlightAttributeRepresentation}}" 
+		class="line {{lineClassAttributeRepresentation}}" 
+		id="line{{lineNumber}}">
+		
 {{#isRemoteMessage}}
 	<p>
 {{/isRemoteMessage}}
@@ -25,6 +13,14 @@
 
 		<span class="time">{{formattedTimestamp}} </span>
 		<span class="message" type="{{lineType}}">
+			<span class="sender"
+				ondblclick="Textual.nicknameDoubleClicked()" 
+				oncontextmenu="Textual.openStandardNicknameContextualMenu()" 
+				type="{{nicknameType}}" 
+				nick="{{nickname}}" 
+				{{#nicknameColorHashingEnabled}} 
+					colornumber="{{nicknameColorNumber}}"
+				{{/nicknameColorHashingEnabled}}>{{formattedNickname}}</span>
 					{{{formattedMessage}}}
 					
 					{{#inlineMediaAvailable}}
@@ -34,6 +30,4 @@
 					{{/inlineMediaAvailable}}
 		</span>
 	</p>
-	</td>
-</tr>
-</table>
+</div>
