@@ -18,23 +18,6 @@ body {
 	font-family: "Lucida Grande";
 }
 
-body div#container {
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 100;
-	max-height: 97.5%;
-	position: absolute;
-}
-
-body div#container div {
- 	margin-top: -1px;
-}
-
-body div#container p {
-	clear: both;
-	position: relative;
-}
 
 /* Links */
 
@@ -59,10 +42,10 @@ a:hover {
   color: #000;
   z-index: 400;
   opacity: 0.95;
-  font-size: 9px;
+  font-size: 10px;
   position: fixed;
   background: #CFD4DD;
-  padding: 2px 0.5em 3px;
+  padding:0.5em;
   border-bottom: 1px solid #8387B6;
   -webkit-box-shadow: 0 1px 5px #777;
 }
@@ -104,13 +87,10 @@ div[id=mark] {
 
 /* Nickname Colors */
 
-body div[type=privmsg] .sender[type=myself],
-body div[type=action] .sender[type=myself] { 
-	color: #FF1676; 
-	color:#555;
+body p[type=myself] .message {
+	color: #555 !important;
 }
 
-/* nickname colors */
 
 body .sender[type*=normal][colornumber='0'], 
 body .inline_nickname[colornumber='0'] {
@@ -267,111 +247,6 @@ body .inline_nickname[colornumber='30'] {
 	color: #08465f;
 }
 
-/* NOTICE/CTCP/WALLOPS */
-
-body div[type=notice],
-body div[type=ctcp],
-body div[type=wallops] {
-	color: #f00;
-  	z-index: 191;
-	background: #fcc;
-  	position: relative;
- 	padding: 2px 5px 2px 5px;
-	border-top: 1px solid #f77;
-	border-bottom: 1px solid #f77;
-}
-
-body div[type=notice] .sender {
-	color: #f00;
-	font-weight: 700;
-}
-
-/* PRIVMSG */
-
-body div[type=privmsg]  {
- 	padding: 3px 5px 3px 5px;
-}
-
-body div[type=privmsg] .message {
-	color: #000;
-}
-
-body div[type=privmsg] p[type=myself] .message {
-	color: #000;
-}
-
-body div[type=privmsg] .sender {
-	font-weight: 700;
-}
-
-/* ACTION */
-
-body div[type=action]  {
- 	padding: 3px 5px 3px 5px;
-}
-
-body div[type=action] .message {
-	color: #000;
-}
-
-body div[type=action] .sender {
-	font-weight: 700;
-}
-
-body div[type=action] p[type=myself] .sender,
-body div[type=action] p[type=myself] .message {
-	color: #B52CF6;
-}
-
-body div[type=action] .sender:before {
-	content: "\2022";
-	margin-right: 0.4em;
-}
-
-body div[type=action] .sender:after {
-	content: "";
-}
-
-/* REPLY/SYSTEM/ERROR/DCC/DEBUG/INVITE */
-
-body div[type=invite],
-body div[type=reply],
-body div[type=system],
-body div[type=error],
-body div[type=error_reply],
-body div[type=dcc_send_send],
-body div[type=dcc_send_receive],
-body div[type=debug_send],
-body div[type=debug_receive] {
-	color: #777;
-  	z-index: 190;
-	background: #eee;
-  	position: relative;
- 	padding: 2px 5px 2px 5px;
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-}
-
-/* GENERAL EVENT */
-
-body div[type=join],
-body div[type=part],
-body div[type=kick],
-body div[type=quit],
-body div[type=kill],
-body div[type=nick],
-body div[type=mode],
-body div[type=topic] {
- 	padding: 3px 5px 3px 5px;
-    color: #aaa;
-}
-
-
-
-body p[type=myself] .message {
-	color: #666 !important;
-}
-
 /* mIRC Color Codes */
 
 .effect[color-number='0'] { color: #fff; }
@@ -463,11 +338,6 @@ table.bf td.nick
 	text-overflow: ellipsis;
 }
 
-table.bf td.nick.hidden
-{
-	color:transparent;
-}
-
 table.bf td.msg
 {
   padding-right:8px;
@@ -489,8 +359,6 @@ table.bf tr#mymark td {
 	border-bottom:2px dotted red;
 }
 
-table.bf tr.highlight[type=privmsg] td,
-table.bf tr.highlight[type=action] td,
 table.bf tr[type=privmsg][highlight=true] td,
 table.bf tr[type=action][highlight=true] td {
 	background:#CF6 !important;

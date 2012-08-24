@@ -89,11 +89,12 @@
     Renderer.prototype.time = function(s) {
       var diff, row, ts;
       ts = new Date;
+      diff = 5;
       if (this.last_time) {
         diff = (ts - this.last_time) / 1000 / 60;
       }
-      if (this.last_time || diff > 5) {
-        row = $("<tr class='time'><td></td><td>" + time + "</td></tr>");
+      if (diff >= 5) {
+        row = $("<tr class='time'><td></td><td class='msg'>" + s + "</td></tr>");
         Bonfire.last_nick = null;
         this.table.append(row);
         return this.last_time = ts;

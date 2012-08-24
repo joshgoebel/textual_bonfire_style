@@ -63,11 +63,12 @@ class @Renderer
   # individual line type routines
   time: (s) ->
     ts = new Date
+    diff = 5
     if @last_time
       diff=(ts-@last_time)/1000/60; # minutes
     # if a new window or haven't printed a timestamp in the past 5 minutes
-    if @last_time or diff > 5
-      row = $("<tr class='time'><td></td><td>" + time + "</td></tr>")
+    if diff >= 5
+      row = $("<tr class='time'><td></td><td class='msg'>" + s + "</td></tr>")
       # nick doesn't count as a repeat if a timestamp separates it
       Bonfire.last_nick = null
       @table.append row
