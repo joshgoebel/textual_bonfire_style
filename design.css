@@ -50,6 +50,14 @@ a:hover {
   -webkit-box-shadow: 0 1px 5px #777;
 }
 
+#topic_bar .name
+{
+  float:right;
+  font-family:'Helvetica neue';
+  font-size:3em;
+  font-weight:bold;
+}
+
 #topic_bar a {
   color: #00e;
   border-color: #00e;
@@ -285,6 +293,7 @@ body .inline_nickname[colornumber='30'] {
 /* campfire */
 
 /*div#body_home { display:none; }*/
+tbody#body_home table { display:none; }
 
 table.bf
 {

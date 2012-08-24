@@ -3,7 +3,14 @@
 class @Renderer
   constructor: (@table, @input) ->
     @table.hide()
+    @swap()
     @draw()
+  swap: ->
+    @input.attr("id",null)
+    @table.attr("id","body_home")
+    @table.prepend(@input.children())
+    # refetch it so we're pointing to the right place
+    @table = @input = $("#body_home")
   draw_done: (final) ->
     @table.show()
     Textual.scrollToBottomOfView()
@@ -12,7 +19,7 @@ class @Renderer
   draw: ->
     @drawing = true
     @decay ||= 25
-    lines = @input.find("table tr.line")
+    lines = @input.find("table.packet tr.line")
     lines.each (i, o) =>
       num=o.id.replace("line","")
       num=parseInt(num)
@@ -30,7 +37,7 @@ class @Renderer
   
   # support
   setup_cap_links: ->
-    setTimeout @cap_link_width, 30000
+    setTimeout ( () => @cap_link_width), 30000
     window.addEventListener "resize", =>
       clearTimeout @resize.timeoutID if @resize
       @resize = setTimeout () =>
@@ -52,7 +59,7 @@ class @Renderer
     if style_fixes.length==0 # if we can't find it then, create it
       style_fixes=$("<style id='fixes'>").appendTo($("head"))
     css="table.bf td.msg a { max-width:#{width}px; }\n"
-    left_column = column[0].offsetWidth
+    left_column = if column[0] then column[0].offsetWidth else 150
     # smart minimum
     left_column = 100 if left_column < 100
     right_column = $(window).width() - left_column - 8
@@ -86,12 +93,16 @@ class @Renderer
       ,50
       return
       
+    # console.log "message() line #{lineNumber}"
+    
     # HACK - sometimes mark is not added to the DOM when historyIndicatorAddedToView is called
     # we'll just try and remove it every time
     @input.find("div#mark").remove();
 
     # tr -> tbody -> table
-    row.parent().parent().remove()
+    tbl=row.parent().parent()
+    row.remove()
+    tbl.remove()
 
     # render time
     time = row.find("span.time")

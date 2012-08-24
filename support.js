@@ -7,8 +7,16 @@
       this.table = table;
       this.input = input;
       this.table.hide();
+      this.swap();
       this.draw();
     }
+
+    Renderer.prototype.swap = function() {
+      this.input.attr("id", null);
+      this.table.attr("id", "body_home");
+      this.table.prepend(this.input.children());
+      return this.table = this.input = $("#body_home");
+    };
 
     Renderer.prototype.draw_done = function(final) {
       this.table.show();
@@ -24,7 +32,7 @@
         _this = this;
       this.drawing = true;
       this.decay || (this.decay = 25);
-      lines = this.input.find("table tr.line");
+      lines = this.input.find("table.packet tr.line");
       lines.each(function(i, o) {
         var num;
         num = o.id.replace("line", "");
@@ -47,7 +55,9 @@
 
     Renderer.prototype.setup_cap_links = function() {
       var _this = this;
-      setTimeout(this.cap_link_width, 30000);
+      setTimeout((function() {
+        return _this.cap_link_width;
+      }), 30000);
       return window.addEventListener("resize", function() {
         if (_this.resize) {
           clearTimeout(_this.resize.timeoutID);
@@ -76,7 +86,7 @@
         style_fixes = $("<style id='fixes'>").appendTo($("head"));
       }
       css = "table.bf td.msg a { max-width:" + width + "px; }\n";
-      left_column = column[0].offsetWidth;
+      left_column = column[0] ? column[0].offsetWidth : 150;
       if (left_column < 100) {
         left_column = 100;
       }
@@ -102,7 +112,7 @@
     };
 
     Renderer.prototype.message = function(lineNumber) {
-      var nick, row, sender, time,
+      var nick, row, sender, tbl, time,
         _this = this;
       row = this.input.find("#line" + lineNumber);
       if (!row[0]) {
@@ -113,7 +123,9 @@
         return;
       }
       this.input.find("div#mark").remove();
-      row.parent().parent().remove();
+      tbl = row.parent().parent();
+      row.remove();
+      tbl.remove();
       time = row.find("span.time");
       this.time(time.html());
       time.remove();
