@@ -112,19 +112,17 @@
       return this.table.append(row);
     };
 
-    Renderer.prototype.move_mark = function() {
+    Renderer.prototype.set_mark = function() {
       var col, mark, row;
       mark = this.input.find("div#mark");
       if (mark[0] === null) {
         console.error("missing the mark");
       }
-      if (mark.length > 0 || 1 === 1) {
-        mark.remove();
-        $("#mymark").remove();
-        row = $("<tr>").attr("id", "mymark");
-        col = $("<td colspan='2'></td>").appendTo(row);
-        return this.table.append(row);
-      }
+      mark.remove();
+      $("#mymark").remove();
+      row = $("<tr>").attr("id", "mymark");
+      col = $("<td colspan='2'></td>").appendTo(row);
+      return this.table.append(row);
     };
 
     return Renderer;

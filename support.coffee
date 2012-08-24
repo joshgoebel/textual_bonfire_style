@@ -98,15 +98,13 @@ class @Renderer
     @table.append row
     # window.console.log("after move");
     
-  move_mark: ->
+  set_mark: ->
     # look for the div mark
     mark = @input.find("div#mark")
-    if mark[0]==null
-      console.error "missing the mark"
-    if mark.length > 0 or 1==1
-      mark.remove()
-      $("#mymark").remove();
-      # and create our own row mark
-      row = $("<tr>").attr("id","mymark");
-      col = $("<td colspan='2'></td>").appendTo(row);
-      @table.append(row);
+    console.error "missing the mark" if mark[0]==null
+    mark.remove()
+    $("#mymark").remove();
+    # and create our own row mark
+    row = $("<tr>").attr("id","mymark");
+    col = $("<td colspan='2'></td>").appendTo(row);
+    @table.append(row);
