@@ -46,29 +46,45 @@
     };
 
     Renderer.prototype.setup_cap_links = function() {
+      var _this = this;
       setTimeout(this.cap_link_width, 30000);
-      return window.addEventListener("resize", this.cap_link_width);
+      return window.addEventListener("resize", function() {
+        if (_this.resize) {
+          clearTimeout(_this.resize.timeoutID);
+        }
+        return _this.resize = setTimeout(function() {
+          return _this.cap_link_width();
+        }, 250);
+      });
     };
 
     Renderer.prototype.cap_link_width = function() {
-      var width, column, style_fixes;
-    column=$("tr:first-child td",this.table).first();
-    // if we have any columns in the table, use those
+      var column, css, left_column, right_column, style_fixes, width;
+      column = this.table.find("tr:first-child td").first();
+      width = 0;
+      // if we have any columns in the table, use those
     if (column.length!=0) {
       // use offsetWidth to avoid needing the full jquery library
       width=$(window).width()-column[0].offsetWidth;
       width=Math.ceil(width*0.85);
     } else {
-      width=Math.ceil($(window).width()*0.6); }
-    if (width==0)
-      width = 200;
-    // look for our fixes stylesheet
-    style_fixes=$("head style#fixes");
-    if (style_fixes.length==0) // if we can't find it then, create it
-      style_fixes=$("<style id='fixes'>").appendTo($("head"));    
-    css="table.bf td.msg a { max-width:" + width + "px; }\n";
-    css+="table.bf { max-width: " + $(window).width() + "px }";
-    style_fixes.html(css);
+      width=Math.ceil($(window).width()*0.6); };
+
+      if (width === 0) {
+        width = 200;
+      }
+      style_fixes = $("head style#fixes");
+      if (style_fixes.length === 0) {
+        style_fixes = $("<style id='fixes'>").appendTo($("head"));
+      }
+      css = "table.bf td.msg a { max-width:" + width + "px; }\n";
+      left_column = column[0].offsetWidth;
+      if (left_column < 100) {
+        left_column = 100;
+      }
+      right_column = $(window).width() - left_column - 8;
+      css += "table.bf { width: " + $(window).width() + "px !important }";
+      style_fixes.html(css);
       return null;
     };
 

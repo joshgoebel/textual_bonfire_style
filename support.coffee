@@ -29,26 +29,35 @@ class @Renderer
   # support
   setup_cap_links: ->
     setTimeout @cap_link_width, 30000
-    window.addEventListener "resize", @cap_link_width
+    window.addEventListener "resize", =>
+      clearTimeout @resize.timeoutID if @resize
+      @resize = setTimeout () =>
+        @cap_link_width()
+      , 250
   cap_link_width: -> 
-    `var width, column, style_fixes;
-    column=$("tr:first-child td",this.table).first();
-    // if we have any columns in the table, use those
+    column = @table.find("tr:first-child td").first()
+    width = 0
+    `// if we have any columns in the table, use those
     if (column.length!=0) {
       // use offsetWidth to avoid needing the full jquery library
       width=$(window).width()-column[0].offsetWidth;
       width=Math.ceil(width*0.85);
     } else {
-      width=Math.ceil($(window).width()*0.6); }
-    if (width==0)
-      width = 200;
-    // look for our fixes stylesheet
-    style_fixes=$("head style#fixes");
-    if (style_fixes.length==0) // if we can't find it then, create it
-      style_fixes=$("<style id='fixes'>").appendTo($("head"));    
-    css="table.bf td.msg a { max-width:" + width + "px; }\n";
-    css+="table.bf { max-width: " + $(window).width() + "px }";
-    style_fixes.html(css)`
+      width=Math.ceil($(window).width()*0.6); }`
+    width = 200 if width==0
+    # look for our fixes stylesheet
+    style_fixes = $("head style#fixes")
+    if style_fixes.length==0 # if we can't find it then, create it
+      style_fixes=$("<style id='fixes'>").appendTo($("head"))
+    css="table.bf td.msg a { max-width:#{width}px; }\n"
+    # css+="table.bf { max-width: #{$(window).width() }px !important }\n"
+    left_column = column[0].offsetWidth
+    # smart minimum
+    left_column = 100 if left_column < 100
+    right_column = $(window).width() - left_column - 8
+    # css+="table.bf tr td.msg { width: " + right_column + "px !important }\n"
+    css+="table.bf { width: " + $(window).width() + "px !important }";
+    style_fixes.html css
     null
     
   # individual line type routines

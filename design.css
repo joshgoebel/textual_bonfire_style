@@ -273,7 +273,6 @@ body p[type=myself] .message {
 
 table.bf
 {
-	width:100%;
 	border-collapse:separate;
 	border-spacing:0px;
 }
@@ -316,8 +315,22 @@ table.bf td.nick.hidden
 	color:transparent;
 }
 
+
+table.bf { 
+  table-layout:fixed; 
+  width:500px !important;
+  }
+
+table.bf td.msg,
+table.bf td.msg p,
+table.bf td.msg p span.message
+{
+  word-wrap:break-word;
+}
+
 table.bf td.msg
 {
+  padding-right:8px;
 	padding-left:8px;
 	width:85%;
 }
@@ -360,10 +373,12 @@ table.bf tr[type='debug'] td.msg {
 /*table.bf tr[type='reply'] td.msg:before { content: "\2022 "; }*/
 
 table.bf tr[type='mode'] td,
-table.bf tr[type='topic'] td
+table.bf tr[type='topic'] td,
+table.bf tr[type='website'] td
 {
 	font-size:0.9em;
 	background:#d9e7fb;
+	border-bottom:1px solid #C8D9F2;
 }
 table.bf tr[type='quit'] td { font-size:0.8em; color:#923F43; }
 table.bf tr[type='part'] td { font-size:0.8em; color:#923F43; }
