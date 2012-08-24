@@ -289,7 +289,7 @@ table.bf a img
   border:0;
 }
 
-table.bf tr.myself td
+table.bf tr[nicktype=myself] td
 {
 	background:#ffffd7;
 	border-bottom:0px;
@@ -365,9 +365,9 @@ table.bf tr[type='topic'] td
 	font-size:0.9em;
 	background:#d9e7fb;
 }
-table.bf tr[type='quit'] td { font-size:0.8em; color:#955; }
-table.bf tr[type='part'] td { font-size:0.8em; color:#955; }
-table.bf tr[type='join'] td { font-size:0.8em; color:#595; }
+table.bf tr[type='quit'] td { font-size:0.8em; color:#923F43; }
+table.bf tr[type='part'] td { font-size:0.8em; color:#923F43; }
+table.bf tr[type='join'] td { font-size:0.8em; color:#4B8949; }
 table.bf tr[type='nick'] td { font-size:0.8em; color:#666; }
 
 /*table.bf tr[type='topic'] td { border-right:0; border-left:0; }*/
