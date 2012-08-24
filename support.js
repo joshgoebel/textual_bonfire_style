@@ -62,14 +62,12 @@
       var column, css, left_column, right_column, style_fixes, width;
       column = this.table.find("tr:first-child td").first();
       width = 0;
-      // if we have any columns in the table, use those
-    if (column.length!=0) {
-      // use offsetWidth to avoid needing the full jquery library
-      width=$(window).width()-column[0].offsetWidth;
-      width=Math.ceil(width*0.85);
-    } else {
-      width=Math.ceil($(window).width()*0.6); };
-
+      if (column.length > 0) {
+        width = $(window).width() - column[0].offsetWidth;
+        width = Math.ceil(width * 0.85);
+      } else {
+        width = Math.ceil($(window).width() * 0.6);
+      }
       if (width === 0) {
         width = 200;
       }
@@ -122,6 +120,14 @@
       nick = sender.attr("nick");
       if (nick && nick !== Bonfire.last_nick) {
         Bonfire.last_nick = nick;
+        if (nick.length > 13) {
+          sender.css({
+            "font-size": "0.85em"
+          });
+          sender.parent().css({
+            "padding-top": "6px"
+          });
+        }
       } else {
         sender.remove();
       }

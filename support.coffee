@@ -37,24 +37,24 @@ class @Renderer
   cap_link_width: -> 
     column = @table.find("tr:first-child td").first()
     width = 0
-    `// if we have any columns in the table, use those
-    if (column.length!=0) {
-      // use offsetWidth to avoid needing the full jquery library
-      width=$(window).width()-column[0].offsetWidth;
-      width=Math.ceil(width*0.85);
-    } else {
-      width=Math.ceil($(window).width()*0.6); }`
+    # if we have any columns in the table, use those
+    if column.length > 0
+      # use offsetWidth to avoid needing the full jquery library
+      width=$(window).width() - column[0].offsetWidth;
+      width = Math.ceil(width*0.85)
+    else
+      width = Math.ceil($(window).width()*0.6)
     width = 200 if width==0
     # look for our fixes stylesheet
     style_fixes = $("head style#fixes")
     if style_fixes.length==0 # if we can't find it then, create it
       style_fixes=$("<style id='fixes'>").appendTo($("head"))
     css="table.bf td.msg a { max-width:#{width}px; }\n"
-    # css+="table.bf { max-width: #{$(window).width() }px !important }\n"
     left_column = column[0].offsetWidth
     # smart minimum
     left_column = 100 if left_column < 100
     right_column = $(window).width() - left_column - 8
+    # css+="table.bf { max-width: #{$(window).width() }px !important }\n"
     # css+="table.bf tr td.msg { width: " + right_column + "px !important }\n"
     css+="table.bf { width: " + $(window).width() + "px !important }";
     style_fixes.html css
@@ -101,6 +101,9 @@ class @Renderer
     nick = sender.attr("nick")
     if nick and nick != Bonfire.last_nick
       Bonfire.last_nick = nick
+      if nick.length > 13
+        sender.css "font-size": "0.85em"
+        sender.parent().css "padding-top": "6px"
     else 
       sender.remove()
 
