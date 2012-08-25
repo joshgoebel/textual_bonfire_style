@@ -12,8 +12,17 @@
 
     Renderer.prototype.draw_done = function(final) {
       Textual.scrollToBottomOfView();
+      this.hide_hello();
       this.cap_link_width();
       return this.setup_cap_links();
+    };
+
+    Renderer.prototype.hide_hello = function() {
+      if (this.table.find(".line").length === 0) {
+        return;
+      }
+      $("#hello").hide();
+      return $("#topic_bar").show();
     };
 
     Renderer.prototype.draw = function() {

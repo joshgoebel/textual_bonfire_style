@@ -7,8 +7,14 @@ class @Renderer
     @no_time = 0
   draw_done: (final) ->
     Textual.scrollToBottomOfView()
+    @hide_hello()
     @cap_link_width()
     @setup_cap_links() # re-entrant
+  hide_hello: ->
+    if @table.find(".line").length == 0
+      return
+    $("#hello").hide()
+    $("#topic_bar").show()
   draw: ->
     @drawing = true
     @decay ||= 25

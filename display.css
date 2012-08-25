@@ -16,6 +16,7 @@ body {
 	overflow-y: visible;
 	background-color: #fff;
 	font-family: "Lucida Grande";
+	background:url(Data/Resources/linen.png);
 }
 
 #loading_screen { display:none; }
@@ -27,6 +28,7 @@ div#body_home {
   table-layout:fixed;
   border-collapse:separate;
 	border-spacing:0px;
+	background:#fff;
   }
 div.line { display:table-row; }
 div#mark { display:table-row; }
@@ -483,9 +485,38 @@ body .inline_nickname[colornumber='30'] {
 	border-right:0px;
 }
 
+/* blankslate */
 
+#hello
+{
+  text-align:center;
+  vertical-align:center;
+  margin:auto;
+  height:100%;
+  font-family:'Helvetica Neue';
+}
 
+#hello .channel
+{
+  font-size:3em;
+}
 
+#topic_bar { display:none; }
+
+#hello p
+{
+  border-radius:10px;
+  padding:10px 20px;
+  display:inline-block;
+/*  background:rgba(255,255,255,0.5);*/
+  position:relative;
+  top:45%;
+  margin-top:0.8em;
+  font-size:2em;
+  color:#777;
+  font-weight:300;
+/*  box-shadow:0px 1px 10px #666;*/
+}
 
 
 

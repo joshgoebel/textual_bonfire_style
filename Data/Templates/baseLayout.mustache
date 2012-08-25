@@ -46,6 +46,18 @@
 			
       <div id="loading_screen">View is Loading…</div>
 			<div id="body_home" class="chatlog"><!-- Filled at runtime. --></div>
+			
+			<div id="hello">
+			  <p>
+			    {{#isChannelView}}
+			    You have not joined this channel yet.
+			    {{/isChannelView}}
+			    {{^isChannelView}}
+			    You have not connected to this server yet.
+			    {{/isChannelView}}
+			    
+		    </p>
+			</div>
 		
 			{{#isChannelView}}
 				<div id="topic_bar">
