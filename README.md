@@ -37,6 +37,7 @@ I'm no longer running 2.1, the Styles path might be slightly different than show
     cd ~/Library/Containers/com.codeux.textual/Data/Library/
     cd Application\ Support/Textual\ IRC/Styles/
     git clone git://github.com/yyyc514/textual_bonfire_style.git
+    cd textual_bonfire_style
     git checkout textual_21
 
 
