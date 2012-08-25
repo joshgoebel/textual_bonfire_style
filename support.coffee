@@ -7,7 +7,7 @@ class @Renderer
   draw_done: (final) ->
     Textual.scrollToBottomOfView()
     @cap_link_width()
-    @setup_cap_links() if final
+    @setup_cap_links() # re-entrant
   draw: ->
     @drawing = true
     @decay ||= 25
@@ -29,6 +29,8 @@ class @Renderer
   
   # support
   setup_cap_links: ->
+    return if @cap_links_setup
+    @cap_links_setup = true
     setTimeout ( () => @cap_link_width), 30000
     window.addEventListener "resize", =>
       clearTimeout @resize.timeoutID if @resize
@@ -36,6 +38,7 @@ class @Renderer
         @cap_link_width()
       , 250
   cap_link_width: -> 
+    # console.log "cap_link_width"
     column = @table.find("div.line:first-child div").first()
     width = 0
     # if we have any columns in the table, use those
@@ -56,6 +59,7 @@ class @Renderer
     left_column = 120 if left_column < 100
     left_column = 150 if left_column > 150
     right_column = $(window).width() - left_column - 8
+    # console.log "window width", $(window).width()
     # css+="table.bf { max-width: #{$(window).width() }px !important }\n"
     css+="div.chatlog .line div.nick { width: " + left_column + "px !important }\n"
     # css+="table.bf tr td.msg { width: " + right_column + "px !important }\n"

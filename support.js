@@ -12,9 +12,7 @@
     Renderer.prototype.draw_done = function(final) {
       Textual.scrollToBottomOfView();
       this.cap_link_width();
-      if (final) {
-        return this.setup_cap_links();
-      }
+      return this.setup_cap_links();
     };
 
     Renderer.prototype.draw = function() {
@@ -45,6 +43,10 @@
 
     Renderer.prototype.setup_cap_links = function() {
       var _this = this;
+      if (this.cap_links_setup) {
+        return;
+      }
+      this.cap_links_setup = true;
       setTimeout((function() {
         return _this.cap_link_width;
       }), 30000);

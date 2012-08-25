@@ -24,6 +24,7 @@ body {
 
 div#body_home { 
   display:table; 
+  table-layout:fixed;
   border-collapse:separate;
 	border-spacing:0px;
   }
@@ -357,6 +358,23 @@ body .inline_nickname[colornumber='30'] {
 	text-overflow: ellipsis;
 }
 
+/*.chatlog .line[type=part] div,
+.chatlog .line[type=quit] div
+{
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+.chatlog .line[type=part] div .message,
+.chatlog .line[type=quit] div .message
+{
+  display:block;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+}
+*/
+
 .chatlog .line[type=privmsg][highlight=true] div,
 .chatlog .line[type=action][highlight=true] div {
 	background:#CF6 !important;
@@ -365,7 +383,18 @@ body .inline_nickname[colornumber='30'] {
 
 /* icing */
 
-.chatlog .line[type='notice'] .msg { color:#963; }
+.chatlog .line[type='notice'] .nick .sender { color:#333 !important }
+.chatlog .line[type='notice'] .msg { color:#963; 
+/*  background: #FDEAC0;*/
+  color:#222;
+  }
+.chatlog .line[type='ctcp'] div
+{
+	font-size:0.9em;
+	background:#C7EDA5;
+}
+  
+  
 .chatlog .line[type='debug'] .msg { 
 	color:#060; 
 	font-size:0.8em;
