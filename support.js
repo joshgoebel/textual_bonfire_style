@@ -131,9 +131,9 @@
       time.remove();
       sender = row.find("span.sender");
       nick = sender.attr("nick");
-      if (nick && nick !== Bonfire.last_nick) {
+      if (nick !== Bonfire.last_nick) {
         Bonfire.last_nick = nick;
-        if (nick.length > 13) {
+        if (nick && nick.length > 13) {
           sender.css({
             "font-size": "0.85em"
           });

@@ -113,9 +113,9 @@ class @Renderer
     # hide same nick in a row
     sender = row.find("span.sender")
     nick = sender.attr("nick")
-    if nick and nick != Bonfire.last_nick
+    if nick != Bonfire.last_nick
       Bonfire.last_nick = nick
-      if nick.length > 13
+      if nick and nick.length > 13
         sender.css "font-size": "0.85em"
         sender.parent().css "padding-top": "6px"
     else 
