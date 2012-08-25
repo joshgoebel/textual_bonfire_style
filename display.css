@@ -415,7 +415,7 @@ body .inline_nickname[colornumber='30'] {
 .chatlog .line[type='part'] div { font-size:0.8em; color:#999; }
 .chatlog .line[type='join'] div { font-size:0.8em; color:#696; }
 .chatlog .line[type='nick'] div { font-size:0.8em; 
-  color:#369; }
+  color:#999; }
 
 /*.chatlog .line[type='topic'] td { border-right:0; border-left:0; }*/
 .chatlog .line[type='mode'] div { border-right:0; border-left:0; }
