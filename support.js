@@ -7,6 +7,7 @@
       this.table = table;
       this.draw();
       this.same_nick = 0;
+      this.no_time = 0;
     }
 
     Renderer.prototype.draw_done = function(final) {
@@ -99,11 +100,19 @@
       if (this.last_time) {
         diff = (ts - this.last_time) / 1000 / 60;
       }
-      if (diff >= 5) {
+      if (diff < 7 && opts.before.attr("type") !== "privmsg") {
+        this.no_time += 1;
+        return;
+      }
+      if (diff >= 5 || (diff < 0.1 && this.no_time > 10 && s !== this.last_time_string)) {
         row = $("<div class='line time'><div class='blank'></div><div class='msg'>" + s + "</div></div>");
         Bonfire.last_nick = null;
         row.insertBefore(opts.before);
-        return this.last_time = ts;
+        this.last_time = ts;
+        this.last_time_string = s;
+        return this.no_time = 0;
+      } else {
+        return this.no_time += 1;
       }
     };
 

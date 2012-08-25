@@ -4,6 +4,7 @@ class @Renderer
   constructor: (@table) ->
     @draw()
     @same_nick = 0
+    @no_time = 0
   draw_done: (final) ->
     Textual.scrollToBottomOfView()
     @cap_link_width()
@@ -73,13 +74,22 @@ class @Renderer
     diff = 5
     if @last_time
       diff=(ts-@last_time)/1000/60; # minutes
+    # try and give preference to actual messages (looks better visually)
+    if diff < 7 and opts.before.attr("type")!="privmsg"
+      @no_time += 1
+      return
     # if a new window or haven't printed a timestamp in the past 5 minutes
-    if diff >= 5
+    # or if we're doing a reload
+    if diff >= 5 or ( diff < 0.1 and @no_time > 10 and s != @last_time_string)
       row = $("<div class='line time'><div class='blank'></div><div class='msg'>" + s + "</div></div>")
       # nick doesn't count as a repeat if a timestamp separates it
       Bonfire.last_nick = null
       row.insertBefore(opts.before)
       @last_time = ts
+      @last_time_string = s
+      @no_time = 0
+    else
+      @no_time += 1
   message: (lineNumber) ->
     row = @table.find("#line#{lineNumber}")
 
