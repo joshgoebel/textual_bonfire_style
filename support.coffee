@@ -59,11 +59,13 @@ class @Renderer
     if style_fixes.length==0 # if we can't find it then, create it
       style_fixes=$("<style id='fixes'>").appendTo($("head"))
     css="table.bf td.msg a { max-width:#{width}px; }\n"
-    left_column = if column[0] then column[0].offsetWidth else 150
+    left_column = if column[0] then column[0].offsetWidth else 120
     # smart minimum
-    left_column = 100 if left_column < 100
+    left_column = 120 if left_column < 100
+    left_column = 150 if left_column > 150
     right_column = $(window).width() - left_column - 8
     # css+="table.bf { max-width: #{$(window).width() }px !important }\n"
+    css+="table.bf tr td.nick { width: " + left_column + "px !important }\n"
     # css+="table.bf tr td.msg { width: " + right_column + "px !important }\n"
     css+="table.bf { width: " + $(window).width() + "px !important }";
     style_fixes.html css

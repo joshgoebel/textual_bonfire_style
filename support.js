@@ -86,11 +86,15 @@
         style_fixes = $("<style id='fixes'>").appendTo($("head"));
       }
       css = "table.bf td.msg a { max-width:" + width + "px; }\n";
-      left_column = column[0] ? column[0].offsetWidth : 150;
+      left_column = column[0] ? column[0].offsetWidth : 120;
       if (left_column < 100) {
-        left_column = 100;
+        left_column = 120;
+      }
+      if (left_column > 150) {
+        left_column = 150;
       }
       right_column = $(window).width() - left_column - 8;
+      css += "table.bf tr td.nick { width: " + left_column + "px !important }\n";
       css += "table.bf { width: " + $(window).width() + "px !important }";
       style_fixes.html(css);
       return null;

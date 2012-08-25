@@ -96,7 +96,7 @@ div[id=mark] {
 /* Nickname Colors */
 
 body p[type=myself] .message {
-	color: #555 !important;
+	color: #444 !important;
 }
 
 
@@ -339,10 +339,11 @@ table.bf td.nick
 	background:#f7f7f7;
 	border-right:1px solid #ccc;
   width:17%;
-	color:#555;
+	color:#444;
 	white-space:nowrap;
 	
   max-width:12em;
+  min-width:120px;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -397,6 +398,8 @@ table.bf tr[type='website'] td
 	background:#d9e7fb;
 	border-bottom:1px solid #C8D9F2;
 }
+table.bf tr[type='mode'] td { font-size:0.85em; }
+
 table.bf tr[type='quit'] td { font-size:0.8em; color:#999; }
 table.bf tr[type='part'] td { font-size:0.8em; color:#999; }
 table.bf tr[type='join'] td { font-size:0.8em; color:#696; }
@@ -405,14 +408,19 @@ table.bf tr[type='nick'] td { font-size:0.8em; color:#666; }
 /*table.bf tr[type='topic'] td { border-right:0; border-left:0; }*/
 table.bf tr[type='mode'] td { border-right:0; border-left:0; }
 
+
+/* actions */
+tr[type=action] .message {}
 tr[type=action] .message:before {
-	content: "\2022";
+	content: "●";
 /*	margin-right: 0.4em;*/
 }
 
 tr[type=action] .message:after {
-	content: "\2022";
+	content: "●";
 }
+
+/* join part */
 
 tr[type=join] td:first-child:before ,
 tr[type=join] .xmessage:before {
