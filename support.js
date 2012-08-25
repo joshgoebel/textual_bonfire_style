@@ -6,6 +6,7 @@
     function Renderer(table) {
       this.table = table;
       this.draw();
+      this.same_nick = 0;
     }
 
     Renderer.prototype.draw_done = function(final) {
@@ -123,8 +124,9 @@
       row.removeClass("raw");
       sender = row.find("span.sender");
       nick = sender.attr("nick");
-      if (nick !== Bonfire.last_nick) {
+      if (nick !== Bonfire.last_nick || this.same_nick > 7) {
         Bonfire.last_nick = nick;
+        this.same_nick = 0;
         if (nick && nick.length > 13) {
           sender.css({
             "font-size": "0.85em"
@@ -134,6 +136,7 @@
           });
         }
       } else {
+        this.same_nick += 1;
         return sender.remove();
       }
     };

@@ -3,6 +3,7 @@
 class @Renderer
   constructor: (@table) ->
     @draw()
+    @same_nick = 0
   draw_done: (final) ->
     Textual.scrollToBottomOfView()
     @cap_link_width()
@@ -99,10 +100,12 @@ class @Renderer
     # hide same nick in a row
     sender = row.find("span.sender")
     nick = sender.attr("nick")
-    if nick != Bonfire.last_nick
+    if nick != Bonfire.last_nick or @same_nick > 7
       Bonfire.last_nick = nick
+      @same_nick = 0
       if nick and nick.length > 13
         sender.css "font-size": "0.85em"
         sender.parent().css "padding-top": "6px"
-    else 
+    else
+      @same_nick += 1
       sender.remove()

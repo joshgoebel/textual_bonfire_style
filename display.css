@@ -28,7 +28,7 @@ div#body_home {
 	border-spacing:0px;
   }
 div.line { display:table-row; }
-div.mark { display:table-row; }
+div#mark { display:table-row; }
 div.line .nick { display:table-cell; }
 div.line .blank { display:table-cell; }
 div.line .msg { display:table-cell; }
@@ -42,7 +42,7 @@ div.line .msg { display:table-cell; }
 
 /* Remember Line */
 
-div[id=mark] {
+div#mark {
   position: relative;
   z-index: 295;
   margin-top: -1px;
