@@ -46,13 +46,13 @@ div.line .msg { display:table-cell; }
 div#mark {
   position: relative;
   z-index: 295;
-  margin-top: -1px;
-  border-bottom: 2px dotted;
+/*  margin-top: -1px;*/
+/*  border-bottom: 2px dotted;*/
   border-color: #c00;
   -webkit-transition: 0.2s linear;
 }
 
-div#mark div { border-bottom: 2px dotted #c00;}
+div#mark div { border-bottom: 2px dashed #c33; }
 
 /* Links */
 
@@ -385,7 +385,8 @@ body .inline_nickname[colornumber='30'] {
 .chatlog .line[type='quit'] div { font-size:0.8em; color:#999; }
 .chatlog .line[type='part'] div { font-size:0.8em; color:#999; }
 .chatlog .line[type='join'] div { font-size:0.8em; color:#696; }
-.chatlog .line[type='nick'] div { font-size:0.8em; color:#666; }
+.chatlog .line[type='nick'] div { font-size:0.8em; 
+  color:#369; }
 
 /*.chatlog .line[type='topic'] td { border-right:0; border-left:0; }*/
 .chatlog .line[type='mode'] div { border-right:0; border-left:0; }
@@ -421,7 +422,8 @@ body .inline_nickname[colornumber='30'] {
 .chatlog .line[type=join] div:first-child,
 .chatlog .line[type=kick] div:first-child,
 .chatlog .line[type=part] div:first-child,
-.chatlog .line[type=quit] div:first-child
+.chatlog .line[type=quit] div:first-child,
+.chatlog .line[type=nick] div:first-child
 {
   text-align:right; padding-right:0;
 }
@@ -429,15 +431,17 @@ body .inline_nickname[colornumber='30'] {
 .chatlog .line[type=join] div:last-child,
 .chatlog .line[type=kick] div:last-child,
 .chatlog .line[type=part] div:last-child,
-.chatlog .line[type=quit] div:last-child
+.chatlog .line[type=quit] div:last-child,
+.chatlog .line[type=nick] div:last-child
 {
   padding-left:1px;
 }
 
 
-.chatlog .line[type=nick] .message:before {
+.chatlog .line[type=nick] div:first-child:after {
+  text-align:right;
 	content:"•";
-  	margin-right: 3px;
+    margin-right: 3px;
 }
 
 .chatlog .line.time div
