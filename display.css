@@ -505,9 +505,6 @@ body .inline_nickname[colornumber='30'] {
 
 #hello p
 {
-  border-radius:10px;
-  padding:10px 20px;
-  display:inline-block;
 /*  background:rgba(255,255,255,0.5);*/
   position:relative;
   top:45%;
