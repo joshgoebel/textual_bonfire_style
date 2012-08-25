@@ -20,8 +20,7 @@ var Bonfire={
 	},
 	start: function()
 	{
-    // console.log("start");
-		Bonfire.render = new Renderer($("#thelog"), $("#body_home"));
+		Bonfire.render = new Renderer($("#body_home"));
 		Bonfire.started = true;
 	},
 };
@@ -32,20 +31,12 @@ Textual.newMessagePostedToView=function(lineNumber)
 	if (!Bonfire.started)
 		return;
 	
-  // window.console.log("new message posted:",lineNumber,
-  //     "backlog:", backlog);
-
   Bonfire.render.message(lineNumber);
   return;
 }
 
 // replace Textual mark with our own
-Textual.historyIndicatorAddedToView = function()
-{
-  console.log("historyIndicatorAddedToView");
-  if (Bonfire.render)
-    Bonfire.render.set_mark();
-}
+Textual.historyIndicatorAddedToView = function() {}
 
 Textual.viewFinishedLoading = function() 
 { 

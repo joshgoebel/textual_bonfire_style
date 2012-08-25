@@ -1,25 +1,17 @@
 # Copyright © 2010, 2011, 2012 Josh Goebel
 
 class @Renderer
-  constructor: (@table, @input) ->
-    @table.hide()
-    @swap()
+  constructor: (@table) ->
     @draw()
-  swap: ->
-    @input.attr("id",null)
-    @table.attr("id","body_home")
-    @table.prepend(@input.children())
-    # refetch it so we're pointing to the right place
-    @table = @input = $("#body_home")
+    @same_nick = 0
   draw_done: (final) ->
-    @table.show()
     Textual.scrollToBottomOfView()
     @cap_link_width()
-    @setup_cap_links() if final
+    @setup_cap_links() # re-entrant
   draw: ->
     @drawing = true
     @decay ||= 25
-    lines = @input.find("table.packet tr.line")
+    lines = @table.find(".line.raw")
     lines.each (i, o) =>
       num=o.id.replace("line","")
       num=parseInt(num)
@@ -27,7 +19,7 @@ class @Renderer
     if lines.length > 0
       @draw_done()
     @decay *= 2
-    unless @decay > 6400
+    unless @decay > 15000
       setTimeout () =>
         @draw()
       , @decay
@@ -37,6 +29,8 @@ class @Renderer
   
   # support
   setup_cap_links: ->
+    return if @cap_links_setup
+    @cap_links_setup = true
     setTimeout ( () => @cap_link_width), 30000
     window.addEventListener "resize", =>
       clearTimeout @resize.timeoutID if @resize
@@ -44,7 +38,8 @@ class @Renderer
         @cap_link_width()
       , 250
   cap_link_width: -> 
-    column = @table.find("tr:first-child td").first()
+    # console.log "cap_link_width"
+    column = @table.find("div.line:first-child div").first()
     width = 0
     # if we have any columns in the table, use those
     if column.length > 0
@@ -58,34 +53,35 @@ class @Renderer
     style_fixes = $("head style#fixes")
     if style_fixes.length==0 # if we can't find it then, create it
       style_fixes=$("<style id='fixes'>").appendTo($("head"))
-    css="table.bf td.msg a { max-width:#{width}px; }\n"
+    css=".chatlog .line a { max-width:#{width}px; }\n"
     left_column = if column[0] then column[0].offsetWidth else 120
     # smart minimum
     left_column = 120 if left_column < 100
     left_column = 150 if left_column > 150
     right_column = $(window).width() - left_column - 8
+    # console.log "window width", $(window).width()
     # css+="table.bf { max-width: #{$(window).width() }px !important }\n"
-    css+="table.bf tr td.nick { width: " + left_column + "px !important }\n"
+    css+="div.chatlog .line div.nick { width: " + left_column + "px !important }\n"
     # css+="table.bf tr td.msg { width: " + right_column + "px !important }\n"
-    css+="table.bf { width: " + $(window).width() + "px !important }";
+    css+="div.chatlog { width: " + $(window).width() + "px !important }";
     style_fixes.html css
     null
     
   # individual line type routines
-  time: (s) ->
+  time: (s, opts) ->
     ts = new Date
     diff = 5
     if @last_time
       diff=(ts-@last_time)/1000/60; # minutes
     # if a new window or haven't printed a timestamp in the past 5 minutes
     if diff >= 5
-      row = $("<tr class='time'><td></td><td class='msg'>" + s + "</td></tr>")
+      row = $("<div class='line time'><div class='blank'></div><div class='msg'>" + s + "</div></div>")
       # nick doesn't count as a repeat if a timestamp separates it
       Bonfire.last_nick = null
-      @table.append row
+      row.insertBefore(opts.before)
       @last_time = ts
   message: (lineNumber) ->
-    row = @input.find("#line#{lineNumber}")
+    row = @table.find("#line#{lineNumber}")
 
     # HACK - keep trying until we have it
     unless row[0]
@@ -96,43 +92,24 @@ class @Renderer
       return
       
     # console.log "message() line #{lineNumber}"
-    
-    # HACK - sometimes mark is not added to the DOM when historyIndicatorAddedToView is called
-    # we'll just try and remove it every time
-    @input.find("div#mark").remove();
-
-    # tr -> tbody -> table
-    tbl=row.parent().parent()
-    row.remove()
-    tbl.remove()
 
     # render time
     time = row.find("span.time")
-    @time time.html()
-    # time.html("line#" +lineNumber);
+    @time time.html(), before: row
     time.remove()
+    
+    # mark this row as processed
+    row.removeClass "raw"
 
     # hide same nick in a row
     sender = row.find("span.sender")
     nick = sender.attr("nick")
-    if nick != Bonfire.last_nick
+    if nick != Bonfire.last_nick or @same_nick > 7
       Bonfire.last_nick = nick
+      @same_nick = 0
       if nick and nick.length > 13
         sender.css "font-size": "0.85em"
         sender.parent().css "padding-top": "6px"
-    else 
+    else
+      @same_nick += 1
       sender.remove()
-
-    @table.append row
-    # window.console.log("after move");
-    
-  set_mark: ->
-    # look for the div mark
-    mark = @input.find("div#mark")
-    console.error "missing the mark" if mark[0]==null
-    mark.remove()
-    $("#mymark").remove();
-    # and create our own row mark
-    row = $("<tr>").attr("id","mymark");
-    col = $("<td colspan='2'></td>").appendTo(row);
-    @table.append(row);

@@ -1,11 +1,10 @@
-<table class="packet">
-<tr type="{{lineType}}" 
+<div type="{{lineType}}" 
 	highlight="{{highlightAttributeRepresentation}}" 
-	class="line {{lineClassAttributeRepresentation}}" 
+	class="line raw {{lineClassAttributeRepresentation}}" 
 	nicktype="{{nicknameType}}"
 	id="line{{lineNumber}}">
 
-	<td class="nick">
+	<div class="nick">
   	<span class="sender"
   		ondblclick="Textual.nicknameDoubleClicked()" 
   		oncontextmenu="Textual.openStandardNicknameContextualMenu()" 
@@ -14,8 +13,8 @@
   		{{#nicknameColorHashingEnabled}} 
   			colornumber="{{nicknameColorNumber}}"
   		{{/nicknameColorHashingEnabled}}>{{formattedNickname}}</span>
-	</td>
-		<td class="msg">
+	</div>
+		<div class="msg">
 {{#isRemoteMessage}}
 	<p>
 {{/isRemoteMessage}}
@@ -35,6 +34,5 @@
 					{{/inlineMediaAvailable}}
 		</span>
 	</p>
-	</td>
-</tr>
-</table>
+	</div>
+</div>
