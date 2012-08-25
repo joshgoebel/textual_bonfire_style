@@ -8,6 +8,7 @@
       this.draw();
       this.same_nick = 0;
       this.no_time = 0;
+      this.hello = true;
     }
 
     Renderer.prototype.draw_done = function(final) {
@@ -22,6 +23,7 @@
         return;
       }
       $("#hello").hide();
+      this.hello = false;
       return $("#topic_bar").show();
     };
 
@@ -129,6 +131,9 @@
       var nick, row, sender, time,
         _this = this;
       row = this.table.find("#line" + lineNumber);
+      if (this.hello) {
+        this.hide_hello();
+      }
       if (!row[0]) {
         console.warn("missing " + lineNumber + ", retrying");
         setTimeout(function() {

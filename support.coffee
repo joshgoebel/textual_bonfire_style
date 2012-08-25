@@ -5,6 +5,7 @@ class @Renderer
     @draw()
     @same_nick = 0
     @no_time = 0
+    @hello = true
   draw_done: (final) ->
     Textual.scrollToBottomOfView()
     @hide_hello()
@@ -14,6 +15,7 @@ class @Renderer
     if @table.find(".line").length == 0
       return
     $("#hello").hide()
+    @hello = false
     $("#topic_bar").show()
   draw: ->
     @drawing = true
@@ -98,6 +100,8 @@ class @Renderer
       @no_time += 1
   message: (lineNumber) ->
     row = @table.find("#line#{lineNumber}")
+    
+    @hide_hello() if @hello
 
     # HACK - keep trying until we have it
     unless row[0]
