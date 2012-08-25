@@ -465,14 +465,14 @@ body .inline_nickname[colornumber='30'] {
 .chatlog .line[type=quit] div:last-child,
 .chatlog .line[type=nick] div:last-child
 {
-  padding-left:1px;
+  padding-left:3px;
 }
 
 
 .chatlog .line[type=nick] div:first-child:after {
   text-align:right;
 	content:"•";
-    margin-right: 3px;
+  margin-right: 2px;
 }
 
 .chatlog .line.time div
