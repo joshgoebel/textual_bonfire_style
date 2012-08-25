@@ -18,6 +18,38 @@ body {
 	font-family: "Lucida Grande";
 }
 
+#loading_screen { display:none; }
+
+/* tables, yeah */
+
+div#body_home { 
+  display:table; 
+  border-collapse:separate;
+	border-spacing:0px;
+  }
+div.line { display:table-row; }
+div.mark { display:table-row; }
+div.line .nick { display:table-cell; }
+div.line .blank { display:table-cell; }
+div.line .msg { display:table-cell; }
+
+.msg,
+.msg p,
+.msg p span.message
+{
+  word-wrap:break-word;
+}
+
+/* Remember Line */
+
+div[id=mark] {
+  position: relative;
+  z-index: 295;
+  margin-top: -1px;
+  border-bottom: 2px dotted;
+  border-color: #c00;
+  -webkit-transition: 0.2s linear;
+}
 
 /* Links */
 
@@ -50,13 +82,6 @@ a:hover {
   -webkit-box-shadow: 0 1px 5px #777;
 }
 
-#topic_bar .name
-{
-  float:right;
-  font-family:'Helvetica neue';
-  font-size:3em;
-  font-weight:bold;
-}
 
 #topic_bar a {
   color: #00e;
@@ -80,17 +105,6 @@ body img {
     padding-top: 5px;
     padding-left: 8px;
     padding-bottom: 5px;
-}
-
-/* Remember Line */
-
-div[id=mark] {
-  position: relative;
-  z-index: 295;
-  margin-top: -1px;
-  border-bottom: 2px dotted;
-  border-color: #c00;
-  -webkit-transition: 0.2s linear;
 }
 
 /* Nickname Colors */
@@ -290,48 +304,25 @@ body .inline_nickname[colornumber='30'] {
 .effect[bgcolor-number='14'] { background-color: #888; }
 .effect[bgcolor-number='15'] { background-color: #ccc; }
 
-/* campfire */
+/* bonfire */
 
-/*div#body_home { display:none; }*/
-tbody#body_home table { display:none; }
-
-table.bf
-{
-	border-collapse:separate;
-	border-spacing:0px;
-}
-
-table.bf td {
+.chatlog .line div {
 	border-bottom:1px solid #eee;
 	padding:5px 6px;
 }
 
-table.bf a img
+.chatlog .line[nicktype=myself] div
 {
-  display:block;
-  border:0;
-}
-
-table.bf tr[nicktype=myself] td
-{
-	background:#ffffd7;
+	background:#ffffd7 !important;
 	border-bottom:0px;
 }
 
-
-table.bf { 
-  table-layout:fixed; 
-  width:500px !important;
-  }
-
-table.bf td.msg,
-table.bf td.msg p,
-table.bf td.msg p span.message
+.chatlog .line span.time
 {
-  word-wrap:break-word;
+  display:none;
 }
 
-table.bf td.nick
+.chatlog div.nick
 {
 	text-align:right;
 	vertical-align:top;
@@ -348,14 +339,14 @@ table.bf td.nick
 	text-overflow: ellipsis;
 }
 
-table.bf td.msg
+.chatlog div.msg
 {
   padding-right:8px;
 	padding-left:8px;
 	width:83%;
 }
 
-table.bf tr td.msg a
+.chatlog div.msg a
 {
 	display:inline-block;
 	white-space:nowrap;
@@ -363,95 +354,90 @@ table.bf tr td.msg a
 	text-overflow: ellipsis;
 }
 
-table.bf tr#mymark td { 
-	padding:0px !important; 
-	border-top:1px solid white;
-	border-bottom:2px dotted red;
-}
-
-table.bf tr[type=privmsg][highlight=true] td,
-table.bf tr[type=action][highlight=true] td {
+.chatlog .line[type=privmsg][highlight=true],
+.chatlog .line[type=action][highlight=true]  {
 	background:#CF6 !important;
 	background:#D6FF88 !important;
 }
 
-/*table.bf tr[type='debug'] td { 
-  background:#FC6;
-  font-size:0.9em;
-  border-top:1px solid #D6A95A;
-  border-bottom:1px solid #D6A95A;
-}
-*/
-table.bf tr[type='notice'] td.msg { color:#963; }
-table.bf tr[type='debug'] td.msg { 
+/* icing */
+
+.chatlog .line[type='notice'] .msg { color:#963; }
+.chatlog .line[type='debug'] .msg { 
 	color:#060; 
 	font-size:0.8em;
 	background:#F2F7EA;
 	}
-/*table.bf tr[type='reply'] td.msg:before { content: "\2022 "; }*/
+/*.chatlog .line[type='reply'] .msg:before { content: "\2022 "; }*/
 
-table.bf tr[type='mode'] td,
-table.bf tr[type='topic'] td,
-table.bf tr[type='website'] td
+.chatlog .line[type='mode'] div,
+.chatlog .line[type='topic'] div,
+.chatlog .line[type='website'] div
 {
 	font-size:0.9em;
 	background:#d9e7fb;
 	border-bottom:1px solid #C8D9F2;
 }
-table.bf tr[type='mode'] td { font-size:0.85em; }
+                            
+.chatlog .line[type='quit'] div { font-size:0.8em; color:#999; }
+.chatlog .line[type='part'] div { font-size:0.8em; color:#999; }
+.chatlog .line[type='join'] div { font-size:0.8em; color:#696; }
+.chatlog .line[type='nick'] div { font-size:0.8em; color:#666; }
 
-table.bf tr[type='quit'] td { font-size:0.8em; color:#999; }
-table.bf tr[type='part'] td { font-size:0.8em; color:#999; }
-table.bf tr[type='join'] td { font-size:0.8em; color:#696; }
-table.bf tr[type='nick'] td { font-size:0.8em; color:#666; }
-
-/*table.bf tr[type='topic'] td { border-right:0; border-left:0; }*/
-table.bf tr[type='mode'] td { border-right:0; border-left:0; }
+/*.chatlog .line[type='topic'] td { border-right:0; border-left:0; }*/
+.chatlog .line[type='mode'] div { border-right:0; border-left:0; }
 
 
 /* actions */
-tr[type=action] .message {}
-tr[type=action] .message:before {
+.chatlog .line[type=action] .message {}
+.chatlog .line[type=action] .message:before {
 	content: "●";
 /*	margin-right: 0.4em;*/
 }
 
-tr[type=action] .message:after {
+.chatlog .line[type=action] .message:after {
 	content: "●";
 }
 
 /* join part */
 
-tr[type=join] td:first-child:before ,
-tr[type=join] .xmessage:before {
+.chatlog .line[type=join] div:first-child:before ,
+.chatlog .line[type=join] .xmessage:before {
 	content: "→";
   	margin-right: 3px;
 }
-tr[type=join] td:first-child { text-align:right; padding-right:0; }
+ { text-align:right; padding-right:0; }
 
-tr[type=kick] td:first-child:before,
-tr[type=part] td:first-child:before,
-tr[type=quit] td:first-child:before,
-tr[type=kick] .xmessage:before,
-tr[type=part] .xmessage:before,
-tr[type=quit] .xmessage:before {
+.chatlog .line[type=kick] div:first-child:before,
+.chatlog .line[type=part] div:first-child:before,
+.chatlog .line[type=quit] div:first-child:before {
 	content: "←";
   	margin-right: 3px;
 }
 
-tr[type=kick] td:first-child,
-tr[type=part] td:first-child,
-tr[type=quit] td:first-child
+.chatlog .line[type=join] div:first-child,
+.chatlog .line[type=kick] div:first-child,
+.chatlog .line[type=part] div:first-child,
+.chatlog .line[type=quit] div:first-child
 {
   text-align:right; padding-right:0;
 }
 
-tr[type=nick] .message:before {
+.chatlog .line[type=join] div:last-child,
+.chatlog .line[type=kick] div:last-child,
+.chatlog .line[type=part] div:last-child,
+.chatlog .line[type=quit] div:last-child
+{
+  padding-left:1px;
+}
+
+
+.chatlog .line[type=nick] .message:before {
 	content:"•";
   	margin-right: 3px;
 }
 
-table.bf tr.time td
+.chatlog .line.time div
 {
 	padding-top:15px;
 	background:white;
@@ -460,3 +446,13 @@ table.bf tr.time td
 	border-left:0px;
 	border-right:0px;
 }
+
+
+
+
+
+
+
+
+
+
