@@ -30,6 +30,7 @@ div#body_home {
 div.line { display:table-row; }
 div#mark { display:table-row; }
 div.line .nick { display:table-cell; }
+div#mark .blank,
 div.line .blank { display:table-cell; }
 div.line .msg { display:table-cell; }
 
@@ -50,6 +51,8 @@ div#mark {
   border-color: #c00;
   -webkit-transition: 0.2s linear;
 }
+
+div#mark div { border-bottom: 2px dotted #c00;}
 
 /* Links */
 
@@ -354,8 +357,8 @@ body .inline_nickname[colornumber='30'] {
 	text-overflow: ellipsis;
 }
 
-.chatlog .line[type=privmsg][highlight=true],
-.chatlog .line[type=action][highlight=true]  {
+.chatlog .line[type=privmsg][highlight=true] div,
+.chatlog .line[type=action][highlight=true] div {
 	background:#CF6 !important;
 	background:#D6FF88 !important;
 }
