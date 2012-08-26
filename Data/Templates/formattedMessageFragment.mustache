@@ -1,20 +1,9 @@
 {{#inlineNicknameMatchFound}}<span class="inline_nickname" ondblclick="Textual.inlineNicknameDoubleClicked()" oncontextmenu="Textual.openInlineNicknameContextualMenu()" colornumber="{{inlineNicknameColorNumber}}">{{/inlineNicknameMatchFound}}
-{{#fragmentContainsFormattingSymbols}}<span class="effect" 
-	
-	style="
-		{{#fragmentIsBold}}
-			font-weight: bold; 
-		{{/fragmentIsBold}}
-	
-		{{#fragmentIsItalicized}}
-			font-style: italic; 
-		{{/fragmentIsItalicized}}
-	
-		{{#fragmentIsUnderlined}}
-			text-decoration: underline; 
-		{{/fragmentIsUnderlined}}
-	"
-	
+{{#fragmentContainsFormattingSymbols}}
+  {{#fragmentIsBold}}<b {{/fragmentIsBold}}
+  {{#fragmentIsItalicized}}<i {{/fragmentIsItalicized}}
+  {{#fragmentIsUnderlined}}<u {{/fragmentIsUnderlined}}
+
 	{{#fragmentTextColor}}
 		color-number="{{fragmentTextColor}}" 
 	{{/fragmentTextColor}}
@@ -22,7 +11,13 @@
 	{{#fragmentBackgroundColor}}
 		bgcolor-number="{{fragmentBackgroundColor}}" 
 	{{/fragmentBackgroundColor}}
->{{/fragmentContainsFormattingSymbols}}
+>
+
+{{/fragmentContainsFormattingSymbols}}
 {{{messageFragment}}}
-{{#fragmentContainsFormattingSymbols}}</span>{{/fragmentContainsFormattingSymbols}}
+{{#fragmentContainsFormattingSymbols}}
+  {{#fragmentIsBold}}</b>{{/fragmentIsBold}}
+  {{#fragmentIsItalicized}}</i>{{/fragmentIsItalicized}}
+  {{#fragmentIsUnderlined}}</u>{{/fragmentIsUnderlined}}
+{{/fragmentContainsFormattingSymbols}}
 {{#inlineNicknameMatchFound}}</span>{{/inlineNicknameMatchFound}}
