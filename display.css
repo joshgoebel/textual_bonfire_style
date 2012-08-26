@@ -489,6 +489,7 @@ body .inline_nickname[colornumber='30'] {
 
 #hello
 {
+  background:url(Data/Resources/linen.png);
   text-align:center;
   vertical-align:center;
   margin:auto;
