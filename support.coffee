@@ -77,6 +77,11 @@ class @Renderer
     null
     
   # individual line type routines
+  nick: (nick, opts) ->
+    row = $("<div class='line'><div class='blank'></div><div class='topnick'>" + nick + "</div></div>")
+    if opts.before.attr("nicktype")=="myself"
+      row.attr("nicktype","myself")
+    row.insertBefore(opts.before)
   time: (s, opts) ->
     ts = new Date
     diff = 5
@@ -101,7 +106,7 @@ class @Renderer
   line: (num) ->
     @table.find("#line#{num}")
   message: (lineNumber) ->
-    row = line(lineNumber)
+    row = @line(lineNumber)
     
     @hide_hello() if @hello
 
@@ -127,11 +132,13 @@ class @Renderer
     sender = row.find("span.sender")
     nick = sender.attr("nick")
     if nick != Bonfire.last_nick or @same_nick > 7
+      @nick sender.parent().html(), before: row
       Bonfire.last_nick = nick
       @same_nick = 0
-      if nick and nick.length > 13
-        sender.css "font-size": "0.85em"
-        sender.parent().css "padding-top": "6px"
+      sender.remove()
+      # if nick and nick.length > 13
+      #   sender.css "font-size": "0.85em"
+      #   sender.parent().css "padding-top": "6px"
     else
       @same_nick += 1
       sender.remove()

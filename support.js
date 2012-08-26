@@ -104,6 +104,15 @@
       return null;
     };
 
+    Renderer.prototype.nick = function(nick, opts) {
+      var row;
+      row = $("<div class='line'><div class='blank'></div><div class='topnick'>" + nick + "</div></div>");
+      if (opts.before.attr("nicktype") === "myself") {
+        row.attr("nicktype", "myself");
+      }
+      return row.insertBefore(opts.before);
+    };
+
     Renderer.prototype.time = function(s, opts) {
       var diff, row, ts;
       ts = new Date;
@@ -127,10 +136,14 @@
       }
     };
 
+    Renderer.prototype.line = function(num) {
+      return this.table.find("#line" + num);
+    };
+
     Renderer.prototype.message = function(lineNumber) {
       var nick, row, sender, time,
         _this = this;
-      row = this.table.find("#line" + lineNumber);
+      row = this.line(lineNumber);
       if (this.hello) {
         this.hide_hello();
       }
@@ -150,16 +163,12 @@
       sender = row.find("span.sender");
       nick = sender.attr("nick");
       if (nick !== Bonfire.last_nick || this.same_nick > 7) {
+        this.nick(sender.parent().html(), {
+          before: row
+        });
         Bonfire.last_nick = nick;
         this.same_nick = 0;
-        if (nick && nick.length > 13) {
-          sender.css({
-            "font-size": "0.85em"
-          });
-          return sender.parent().css({
-            "padding-top": "6px"
-          });
-        }
+        return sender.remove();
       } else {
         this.same_nick += 1;
         return sender.remove();

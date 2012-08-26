@@ -30,19 +30,15 @@ div#body_home {
 	border-spacing:0px;
 	background:#fff;
   }
-div.line { display:table-row; }
-div#mark { display:table-row; }
-div.line .nick { display:table-cell; }
+div#mark,
+div.line 
+{ display:table-row; }
 div#mark .blank,
-div.line .blank { display:table-cell; }
-div.line .msg { display:table-cell; }
+div.line .blank 
+{ display:table-cell; }
 
-.msg,
-.msg p,
-.msg p span.message
-{
-  word-wrap:break-word;
-}
+div.line .nick { display:table-cell; }
+div.line .msg { display:table-cell; }
 
 /* Remember Line */
 
@@ -115,7 +111,7 @@ body img {
 
 /* Nickname Colors */
 
-body p[type=myself] .message {
+.line[nicktype=myself] .message {
 	color: #222 !important;
 }
 
@@ -328,13 +324,18 @@ body .inline_nickname[colornumber='30'] {
   display:none;
 }
 
+.chatlog div .sender:after
+{
+  color:#aaa;
+  content:":";
+}
 .chatlog div.nick
 {
 	text-align:right;
 	vertical-align:top;
 	font-weight:bold;
-	background:#eee;
-	border-right:1px solid #ccc;
+/*  background:#eee;*/
+/*  border-right:1px solid #ddd;*/
   width:17%;
 	color:#444;
 	white-space:nowrap;
@@ -343,12 +344,25 @@ body .inline_nickname[colornumber='30'] {
   min-width:120px;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	width:1%;
+}
+.chatlog .line div:first-child
+{
+  display:none;
+}
+
+.chatlog div.topnick
+{
+  font-size:0.9em;
+  display:table-cell;
+  font-weight:bold;
+  padding-left:15px;
 }
 
 .chatlog div.msg
 {
   padding-right:8px;
-	padding-left:8px;
+	padding-left:15px;
 	width:83%;
 }
 
