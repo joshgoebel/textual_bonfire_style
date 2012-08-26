@@ -98,8 +98,10 @@ class @Renderer
       @no_time = 0
     else
       @no_time += 1
+  line: (num) ->
+    @table.find("#line#{num}")
   message: (lineNumber) ->
-    row = @table.find("#line#{lineNumber}")
+    row = line(lineNumber)
     
     @hide_hello() if @hello
 
