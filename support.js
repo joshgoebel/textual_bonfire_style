@@ -12,10 +12,17 @@
     }
 
     Renderer.prototype.draw_done = function(final) {
-      Textual.scrollToBottomOfView();
       this.hide_hello();
+      Textual.scrollToBottomOfView();
       this.cap_link_width();
-      return this.setup_cap_links();
+      this.setup_cap_links();
+      return this.fixup_topic();
+    };
+
+    Renderer.prototype.fixup_topic = function() {
+      return this.table.css({
+        "margin-top": $("#topic_bar").height() + "px"
+      });
     };
 
     Renderer.prototype.hide_hello = function() {
@@ -28,12 +35,13 @@
     };
 
     Renderer.prototype.draw = function() {
-      var lines,
+      var lines, raw_lines,
         _this = this;
       this.drawing = true;
       this.decay || (this.decay = 25);
-      lines = this.table.find(".line.raw");
-      lines.each(function(i, o) {
+      lines = this.table.find(".line");
+      raw_lines = this.table.find(".line.raw");
+      raw_lines.each(function(i, o) {
         var num;
         num = o.id.replace("line", "");
         num = parseInt(num);
@@ -127,10 +135,14 @@
       }
     };
 
+    Renderer.prototype.line = function(num) {
+      return this.table.find("#line" + num);
+    };
+
     Renderer.prototype.message = function(lineNumber) {
       var nick, row, sender, time,
         _this = this;
-      row = this.table.find("#line" + lineNumber);
+      row = this.line(lineNumber);
       if (this.hello) {
         this.hide_hello();
       }

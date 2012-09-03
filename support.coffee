@@ -7,10 +7,13 @@ class @Renderer
     @no_time = 0
     @hello = true
   draw_done: (final) ->
-    Textual.scrollToBottomOfView()
     @hide_hello()
+    Textual.scrollToBottomOfView()
     @cap_link_width()
     @setup_cap_links() # re-entrant
+    @fixup_topic()
+  fixup_topic: ->
+    @table.css "margin-top": $("#topic_bar").height() + "px"
   hide_hello: ->
     if @table.find(".line").length == 0
       return
@@ -20,8 +23,9 @@ class @Renderer
   draw: ->
     @drawing = true
     @decay ||= 25
-    lines = @table.find(".line.raw")
-    lines.each (i, o) =>
+    lines = @table.find(".line")
+    raw_lines = @table.find(".line.raw")
+    raw_lines.each (i, o) =>
       num=o.id.replace("line","")
       num=parseInt(num)
       @message(num)
@@ -101,7 +105,7 @@ class @Renderer
   line: (num) ->
     @table.find("#line#{num}")
   message: (lineNumber) ->
-    row = line(lineNumber)
+    row = @line(lineNumber)
     
     @hide_hello() if @hello
 

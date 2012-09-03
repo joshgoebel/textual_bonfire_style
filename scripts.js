@@ -13,8 +13,8 @@ var Bonfire={
 		if (Bonfire.initing) { return }
 		Bonfire.initing = true;
     // Textual.include_js("jquery.tiny.js");
-    Textual.include_js("zepto8.tiny.js");
-    Textual.include_js("support.js");
+    // Textual.include_js("zepto8.tiny.js");
+    // Textual.include_js("support.js");
     // evidentally the page needs a second to render, parse JS, etc
 		setTimeout(Bonfire.start, 25);
 	},
