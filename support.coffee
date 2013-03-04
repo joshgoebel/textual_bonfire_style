@@ -1,25 +1,58 @@
-# Copyright © 2010, 2011, 2012 Josh Goebel
+# Copyright © 2010-2013 Josh Goebel
+
+class @Hello
+  constructor: (@table) ->
+    @div = $("#hello")
+    @hidden = false
+    @render()
+  render: ->
+    channel = $("html").attr("channelname")
+    if channel # reset to defaults (in case of part mostly)
+      @text("You have not joined this channel yet.")
+    @table.hide()
+    # 3.0 status api
+    return unless app.serverIsConnected 
+    if not app.serverIsConnected()
+      @text("You have not yet connected to the server.") 
+    else if app.channelIsJoined() 
+      # channel = $("html").attr("channelname")
+      @text("No chatter on this channel yet.") 
+  show: ->
+    @hidden = false
+    @div.show()
+    $("#topic_bar").hide()
+  text: (x) ->
+    @div.find("p").html(x)
+  hide: ->
+    return if @hidden
+    if @table.find(".line").length == 0
+      return
+    @table.show()
+    @hidden = true
+    @div.hide()
+    $("#topic_bar").show()
+  rerender: ->
+    @render() unless @hidden
+  # events
+  serverDisconnected: -> @rerender()
+  serverConnected: -> @rerender()
+  channelJoined: -> @rerender()
+  channelParted: -> @rerender()
 
 class @Renderer
   constructor: (@table) ->
+    @hello = new Hello(@table);
     @draw()
     @same_nick = 0
     @no_time = 0
-    @hello = true
   draw_done: (final) ->
-    @hide_hello()
+    @hello.hide()
     Textual.scrollToBottomOfView()
     @cap_link_width()
     @setup_cap_links() # re-entrant
     @fixup_topic()
   fixup_topic: ->
     @table.css "margin-top": $("#topic_bar").height() + "px"
-  hide_hello: ->
-    if @table.find(".line").length == 0
-      return
-    $("#hello").hide()
-    @hello = false
-    $("#topic_bar").show()
   draw: ->
     @drawing = true
     @decay ||= 25
@@ -107,7 +140,7 @@ class @Renderer
   message: (lineNumber) ->
     row = @line(lineNumber)
     
-    @hide_hello() if @hello
+    @hello.hide()
 
     # HACK - keep trying until we have it
     unless row[0]

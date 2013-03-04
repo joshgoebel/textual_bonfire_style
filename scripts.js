@@ -12,6 +12,7 @@ var Bonfire={
 	{
 		if (Bonfire.initing) { return }
 		Bonfire.initing = true;
+    // console.log(app.channelIsJoined());
     // Textual.include_js("jquery.tiny.js");
     // Textual.include_js("zepto8.tiny.js");
     // Textual.include_js("support.js");
@@ -25,18 +26,27 @@ var Bonfire={
 	},
 };
 
+// pass all events into our hello class
+Textual.handleEvent = function(event) {
+  if (Bonfire.render.hello[event])
+    Bonfire.render.hello[event](); }
+
 Textual.newMessagePostedToView=function(lineNumber)
 {
   // FinishedLoding or FinishedReload event should spooling us up, patience
 	if (!Bonfire.started)
 		return;
 	
+  // $("<div>" + lineNumber + "</div>").appendTo($("#body_home"));
   Bonfire.render.message(lineNumber);
   return;
 }
 
 // replace Textual mark with our own
-Textual.historyIndicatorAddedToView = function() {}
+Textual.historyIndicatorAddedToView = function() {
+  // $("<div>---</div>").appendTo($("#body_home"));
+}
+
 
 Textual.viewFinishedLoading = function() 
 { 

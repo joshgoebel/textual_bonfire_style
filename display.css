@@ -320,6 +320,7 @@ body .inline_nickname[colornumber='30'] {
 .chatlog .line[nicktype=myself] div
 {
 	background:#ffffd7 !important;
+  background:#FFfacc !important;
 	border-bottom:0px;
 }
 
@@ -490,16 +491,30 @@ body .inline_nickname[colornumber='30'] {
 #hello
 {
   background:url(Data/Resources/linen.png);
-  text-align:center;
-  vertical-align:center;
+  display:table;
   margin:auto;
   height:100%;
+  width:100%;
   font-family:'Helvetica Neue';
 }
 
+#hello div
+{
+  height:500px;
+  display:table-cell;
+  text-align:center;
+  vertical-align:middle;
+}
+
+
 #hello .channel
 {
-  font-size:3em;
+  border-radius:5px;
+  padding:5px 10px;
+  background:rgba(255,255,255,0.2);
+  color:#333;
+  font-size:2em;
+/*  box-shadow:0px 0px 5px #666;*/
 }
 
 #topic_bar { display:none; }
@@ -507,11 +522,11 @@ body .inline_nickname[colornumber='30'] {
 #hello p
 {
 /*  background:rgba(255,255,255,0.5);*/
-  position:relative;
-  top:45%;
-  margin-top:0.8em;
+  text-shadow:1px 1px 0px #666;
+  margin-top:0.5em;
   font-size:2em;
   color:#777;
+  color:#eee;;
   font-weight:300;
 /*  box-shadow:0px 1px 10px #666;*/
 }
