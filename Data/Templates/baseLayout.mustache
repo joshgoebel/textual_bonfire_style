@@ -51,7 +51,9 @@
 			
 			<div id="hello">
         <div>
-        <span class="channel">{{channelName}}</span>
+        <span class="channel">{{channelName}}
+        {{^isChannelView}}{{configuredServerName}}{{/isChannelView}}
+      </span>
 			  <p>
 			    {{#isChannelView}}
 			    You have not joined this channel yet.
