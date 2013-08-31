@@ -2,7 +2,7 @@
 
 Copyright © 2010, 2011, 2012 Josh Goebel
 
-*/ 
+*/
 
 // setTimeout(function() { Bonfire.init(); },10)
 // $(window).load(function() { Bonfire.init(); })
@@ -36,9 +36,9 @@ Textual.newMessagePostedToView=function(lineNumber)
   // FinishedLoding or FinishedReload event should spooling us up, patience
 	if (!Bonfire.started)
 		return;
-	
+
   // $("<div>" + lineNumber + "</div>").appendTo($("#body_home"));
-  Bonfire.render.message(lineNumber);
+  Bonfire.render.message(lineNumber,0);
   return;
 }
 
@@ -48,14 +48,14 @@ Textual.historyIndicatorAddedToView = function() {
 }
 
 
-Textual.viewFinishedLoading = function() 
-{ 
+Textual.viewFinishedLoading = function()
+{
   console.log("viewFinishedLoading");
-  Bonfire.init(); 
+  Bonfire.init();
 }
-  
-Textual.viewFinishedReload = function() 
-{ 
+
+Textual.viewFinishedReload = function()
+{
   console.log("viewFinishedReload");
-  Bonfire.init(); 
+  Bonfire.init();
 }

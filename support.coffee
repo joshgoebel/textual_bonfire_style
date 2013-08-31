@@ -11,12 +11,12 @@ class @Hello
       @text("You have not joined this channel yet.")
     @table.hide()
     # 3.0 status api
-    return unless app.serverIsConnected 
+    return unless app.serverIsConnected
     if not app.serverIsConnected()
-      @text("You have not yet connected to the server.") 
-    else if app.channelIsJoined() 
+      @text("You have not yet connected to the server.")
+    else if app.channelIsJoined()
       # channel = $("html").attr("channelname")
-      @text("No chatter on this channel yet.") 
+      @text("No chatter on this channel yet.")
   show: ->
     @hidden = false
     @div.show()
@@ -60,8 +60,7 @@ class @Renderer
     raw_lines = @table.find(".line.raw")
     raw_lines.each (i, o) =>
       num=o.id.replace("line","")
-      num=parseInt(num)
-      @message(num)
+      @message num, 0
     if lines.length > 0
       @draw_done()
     @decay *= 2
@@ -72,7 +71,7 @@ class @Renderer
     else
       @drawing = false
       @draw_done(true)
-  
+
   # support
   setup_cap_links: ->
     return if @cap_links_setup
@@ -83,7 +82,7 @@ class @Renderer
       @resize = setTimeout () =>
         @cap_link_width()
       , 250
-  cap_link_width: -> 
+  cap_link_width: ->
     # console.log "cap_link_width"
     column = @table.find("div.line:first-child div").first()
     width = 0
@@ -112,13 +111,13 @@ class @Renderer
     css+="div.chatlog { width: " + $(window).width() + "px !important }";
     style_fixes.html css
     null
-    
+
   # individual line type routines
   time: (s, opts) ->
     ts = new Date
     diff = 5
     if @last_time
-      diff=(ts-@last_time)/1000/60; # minutes
+      diff=(ts-@last_time) / 1000 / 60; # minutes
     # try and give preference to actual messages (looks better visually)
     if diff < 7 and opts.before.attr("type")!="privmsg"
       @no_time += 1
@@ -137,26 +136,30 @@ class @Renderer
       @no_time += 1
   line: (num) ->
     @table.find("#line#{num}")
-  message: (lineNumber) ->
+  message: (lineNumber, repeat) ->
+    # console.log "process line: #{lineNumber}"
     row = @line(lineNumber)
-    
+
     @hello.hide()
 
     # HACK - keep trying until we have it
     unless row[0]
       console.warn "missing #{lineNumber}, retrying"
+      if repeat > 5
+        console.warn "bailing, too many tries for #{lineNumber}"
+        return
       setTimeout () =>
-        @message(lineNumber)
+        @message(lineNumber, repeat+1)
       ,50
       return
-      
+
     # console.log "message() line #{lineNumber}"
 
     # render time
     time = row.find("span.time")
     @time time.html(), before: row
     time.remove()
-    
+
     # mark this row as processed
     row.removeClass "raw"
 
