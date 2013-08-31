@@ -185,6 +185,7 @@
         this.no_time += 1;
         return;
       }
+      s = s.replace(/^0/, "");
       if (diff >= 5 || (diff < 0.1 && this.no_time > 10 && s !== this.last_time_string)) {
         row = $("<div class='line time'><div class='blank'></div><div class='msg'>" + s + "</div></div>");
         Bonfire.last_nick = null;

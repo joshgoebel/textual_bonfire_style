@@ -122,6 +122,7 @@ class @Renderer
     if diff < 7 and opts.before.attr("type")!="privmsg"
       @no_time += 1
       return
+    s = s.replace /^0/, ""
     # if a new window or haven't printed a timestamp in the past 5 minutes
     # or if we're doing a reload
     if diff >= 5 or ( diff < 0.1 and @no_time > 10 and s != @last_time_string)
