@@ -526,7 +526,7 @@ body .inline_nickname[colornumber='30'] {
 
 #hello div
 {
-  height:500px;
+  height:100px;
   display:table-cell;
   text-align:center;
   vertical-align:middle;
