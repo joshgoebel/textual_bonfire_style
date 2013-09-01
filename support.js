@@ -99,7 +99,10 @@
     };
 
     Hello.prototype.rerender = function() {
-      return this.render();
+      var _this = this;
+      return setTimeout((function() {
+        return _this.render();
+      }), 25);
     };
 
     Hello.prototype.serverDisconnected = function() {
@@ -115,10 +118,6 @@
     };
 
     Hello.prototype.channelParted = function() {
-      return this.rerender();
-    };
-
-    Hello.prototype.channelMemberAdded = function() {
       return this.rerender();
     };
 

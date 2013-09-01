@@ -60,14 +60,17 @@ class Hello
     $("#topic_bar").show()
     @render() # we may need to render status
   rerender: ->
-    @render()
+    # This is needed until the pull request goes thru because state information is not
+    # correct until AFTER the event has been fired
+    # https://github.com/Codeux/Textual/pull/410
+    setTimeout (=> @render()), 25
   # events
   serverDisconnected: -> @rerender()
   serverConnected: -> @rerender()
   channelJoined: -> @rerender()
   channelParted: -> @rerender()
   # because channelJoined is not reliable
-  channelMemberAdded: -> @rerender()
+  # channelMemberAdded: -> @rerender()
 
 class Renderer
   constructor: (@table) ->
