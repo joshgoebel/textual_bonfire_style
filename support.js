@@ -30,6 +30,7 @@
       }
     },
     handleEvent: function(event) {
+      console.log("event: " + event);
       if (Bonfire.renderer.hello[event]) {
         return Bonfire.renderer.hello[event]();
       }
@@ -40,7 +41,9 @@
     function Hello(table) {
       this.table = table;
       this.div = $("#hello");
+      this.summary = $("#status");
       this.hidden = false;
+      this.table.hide();
       this.render();
     }
 
@@ -50,15 +53,25 @@
       if (channel) {
         this.text("You have not joined this channel yet.");
       }
-      this.table.hide();
       if (!app.serverIsConnected) {
         return;
       }
+      this.summary.hide();
       if (!app.serverIsConnected()) {
-        return this.text("You have not yet connected to the server.");
+        this.text("You have not yet connected to the server.");
+        return this.status("Not connected to server.");
+      } else if (channel && !app.channelIsJoined()) {
+        return this.status("Not joined to channel.");
       } else if (app.channelIsJoined()) {
         return this.text("No chatter on this channel yet.");
       }
+    };
+
+    Hello.prototype.status = function(x) {
+      if (this.hidden) {
+        this.summary.show();
+      }
+      return this.summary.find("p").html(x);
     };
 
     Hello.prototype.show = function() {
@@ -81,13 +94,12 @@
       this.table.show();
       this.hidden = true;
       this.div.hide();
-      return $("#topic_bar").show();
+      $("#topic_bar").show();
+      return this.render();
     };
 
     Hello.prototype.rerender = function() {
-      if (!this.hidden) {
-        return this.render();
-      }
+      return this.render();
     };
 
     Hello.prototype.serverDisconnected = function() {
@@ -103,6 +115,10 @@
     };
 
     Hello.prototype.channelParted = function() {
+      return this.rerender();
+    };
+
+    Hello.prototype.channelMemberAdded = function() {
       return this.rerender();
     };
 

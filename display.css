@@ -489,6 +489,27 @@ body .inline_nickname[colornumber='30'] {
 	border-right:0px;
 }
 
+/* status */
+
+#status
+{
+  background:rgba(0,0,0,0.75);
+  width:50%;
+  position:fixed;
+  top:45%;
+  left:25%;
+  font-family:'Helvetica Neue';
+  padding:20px;
+  border-radius:5px;
+}
+#status p
+{
+  font-weight:300;
+  font-size:2em;
+  text-align:center;
+  color:white;
+}
+
 /* blankslate */
 
 #hello

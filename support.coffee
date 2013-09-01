@@ -14,6 +14,7 @@ Bonfire =
   message: (lineNumber) ->
     Bonfire.renderer.message lineNumber, 0 if Bonfire.renderer
   handleEvent: (event) ->
+    console.log "event: #{event}"
     if Bonfire.renderer.hello[event]
       Bonfire.renderer.hello[event]()
 
@@ -22,20 +23,27 @@ Bonfire =
 class Hello
   constructor: (@table) ->
     @div = $("#hello")
+    @summary = $("#status")
     @hidden = false
+    @table.hide()
     @render()
   render: ->
     channel = $("html").attr("channelname")
     if channel # reset to defaults (in case of part mostly)
       @text("You have not joined this channel yet.")
-    @table.hide()
     # 3.0 status api
     return unless app.serverIsConnected
+    @summary.hide()
     if not app.serverIsConnected()
       @text("You have not yet connected to the server.")
+      @status("Not connected to server.")
+    else if channel and not app.channelIsJoined()
+      @status("Not joined to channel.")
     else if app.channelIsJoined()
-      # channel = $("html").attr("channelname")
       @text("No chatter on this channel yet.")
+  status: (x) ->
+    @summary.show() if @hidden
+    @summary.find("p").html(x)
   show: ->
     @hidden = false
     @div.show()
@@ -50,13 +58,16 @@ class Hello
     @hidden = true
     @div.hide()
     $("#topic_bar").show()
+    @render() # we may need to render status
   rerender: ->
-    @render() unless @hidden
+    @render()
   # events
   serverDisconnected: -> @rerender()
   serverConnected: -> @rerender()
   channelJoined: -> @rerender()
   channelParted: -> @rerender()
+  # because channelJoined is not reliable
+  channelMemberAdded: -> @rerender()
 
 class Renderer
   constructor: (@table) ->
