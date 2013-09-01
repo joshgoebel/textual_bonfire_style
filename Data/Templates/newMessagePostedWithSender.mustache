@@ -30,7 +30,7 @@
 
 					{{#inlineMediaAvailable}}
 						{{#inlineMediaArray}}
-							<a href="{{{anchorLink}}}" onclick="return Textual.hideInlineImage(this)" class="hasinlineimage"><img src="{{{imageURL}}}" style="max-width: {{preferredMaximumWidth}}px;" title="Hide image by shift clicking." /></a>
+							<a href="{{{anchorLink}}}" onclick="return Textual.toggleInlineImage('{{anchorInlineImageUniqueID}}');" class="hasinlineimage"><img id="inlineImage-{{anchorInlineImageUniqueID}}" src="{{{imageURL}}}" style="max-width: {{preferredMaximumWidth}}px;" title="Hide image by shift clicking." /></a>
 						{{/inlineMediaArray}}
 					{{/inlineMediaAvailable}}
 		</span>
