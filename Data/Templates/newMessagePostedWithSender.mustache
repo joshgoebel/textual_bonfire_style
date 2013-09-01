@@ -1,16 +1,17 @@
-<div type="{{lineType}}" 
-	highlight="{{highlightAttributeRepresentation}}" 
-	class="line raw {{lineClassAttributeRepresentation}}" 
+<div type="{{lineType}}"
+	highlight="{{highlightAttributeRepresentation}}"
+	class="line raw {{lineClassAttributeRepresentation}}"
 	nicktype="{{nicknameType}}"
-	id="line{{lineNumber}}">
+	id="line{{lineNumber}}"
+  time="{{lineRenderTime}}">
 
 	<div class="nick">
   	<span class="sender"
-  		ondblclick="Textual.nicknameDoubleClicked()" 
-  		oncontextmenu="Textual.openStandardNicknameContextualMenu()" 
-  		type="{{nicknameType}}" 
-  		nick="{{nickname}}" 
-  		{{#nicknameColorHashingEnabled}} 
+  		ondblclick="Textual.nicknameDoubleClicked()"
+  		oncontextmenu="Textual.openStandardNicknameContextualMenu()"
+  		type="{{nicknameType}}"
+  		nick="{{nickname}}"
+  		{{#nicknameColorHashingEnabled}}
   			colornumber="{{nicknameColorNumber}}"
   		{{/nicknameColorHashingEnabled}}>{{formattedNickname}}</span>
 	</div>
@@ -26,7 +27,7 @@
 		<span class="time">{{formattedTimestamp}} </span>
 		<span class="message">
 					{{{formattedMessage}}}
-					
+
 					{{#inlineMediaAvailable}}
 						{{#inlineMediaArray}}
 							<a href="{{{anchorLink}}}" onclick="return Textual.hideInlineImage(this)"><img src="{{{imageURL}}}" class="inlineimage" style="max-width: {{preferredMaximumWidth}}px;" title="Hide image by shift clicking." /></a>
