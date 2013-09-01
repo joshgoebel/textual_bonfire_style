@@ -1,6 +1,25 @@
-# Copyright © 2010-2013 Josh Goebel
+# Copyright © 2010 - 2013 Josh Goebel
 
-class @Hello
+# Textual API hooks
+Textual.viewFinishedLoading = -> Bonfire.boot()
+Textual.viewFinishedReload = -> Bonfire.boot()
+Textual.handleEvent = (event) -> Bonfire.handleEvent event
+Textual.newMessagePostedToView = (lineNumber) -> Bonfire.message lineNumber
+
+Bonfire =
+  boot: ->
+    Bonfire.booting ||= setTimeout () ->
+      Bonfire.renderer = new Renderer($("#body_home"))
+    , 25
+  message: (lineNumber) ->
+    Bonfire.renderer.message lineNumber, 0 if Bonfire.renderer
+  handleEvent: (event) ->
+    if Bonfire.renderer.hello[event]
+      Bonfire.renderer.hello[event]()
+
+# our custom render code
+
+class Hello
   constructor: (@table) ->
     @div = $("#hello")
     @hidden = false
@@ -39,7 +58,7 @@ class @Hello
   channelJoined: -> @rerender()
   channelParted: -> @rerender()
 
-class @Renderer
+class Renderer
   constructor: (@table) ->
     @hello = new Hello(@table);
     @draw()
