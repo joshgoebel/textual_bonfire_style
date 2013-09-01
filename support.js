@@ -254,6 +254,25 @@
       return this.table.find("#line" + num);
     };
 
+    Renderer.prototype.fix_realy_long_words = function(row) {
+      var long, msg, word, words, _i, _len;
+      msg = row.find("span.message");
+      words = row.text().split(" ");
+      long = false;
+      for (_i = 0, _len = words.length; _i < _len; _i++) {
+        word = words[_i];
+        if (word.length > 100) {
+          long = true;
+          break;
+        }
+      }
+      if (long) {
+        return msg.css({
+          "word-break": "break-all"
+        });
+      }
+    };
+
     Renderer.prototype.message = function(lineNumber, repeat) {
       var nick, row, sender, time,
         _this = this;
@@ -275,6 +294,7 @@
         before: row
       });
       time.remove();
+      this.fix_realy_long_words(row);
       row.removeClass("raw");
       sender = row.find("span.sender");
       nick = sender.attr("nick");

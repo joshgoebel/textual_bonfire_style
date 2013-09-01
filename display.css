@@ -42,6 +42,8 @@ div.line .msg { display:table-cell; }
 .msg p span.message
 {
   word-wrap:break-word;
+  word-break: break-all;
+  word-break: normal;
 }
 
 /* Remember Line */

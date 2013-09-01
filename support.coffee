@@ -167,6 +167,15 @@ class Renderer
       @no_time += 1
   line: (num) ->
     @table.find("#line#{num}")
+  fix_realy_long_words: (row) ->
+    msg = row.find("span.message")
+    words = row.text().split(" ")
+    long = false
+    for word in words
+      if word.length > 100
+        long = true
+        break
+    msg.css "word-break": "break-all" if long
   message: (lineNumber, repeat) ->
     # console.log "process line: #{lineNumber}"
     row = @line(lineNumber)
@@ -191,6 +200,7 @@ class Renderer
     @time time.html(), before: row
     time.remove()
 
+    @fix_realy_long_words row
     # mark this row as processed
     row.removeClass "raw"
 
