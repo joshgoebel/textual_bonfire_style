@@ -7,10 +7,14 @@ I just happen to like them dark, so that's what I used for the sample snap.
 
 ![What it looks like](https://raw.github.com/yyyc514/textual_bonfire_style/master/bonfire_snap.png)
 
-## Textual 2.1.1
+## Textual 3.x
+
+I've recently improved the theme to handle server and channel events so that when you are looking at a channel or server window it will be very clear if you are not joined to the channel or have been disconnected from the server.  This was one of my few gripes about Textual before.
+
+## Textual 2.1.1 or newer required
 
 The `master` branch now only supports Textual 2.1.1 and newer because of the recent [theme engine
-changes][theme_engine].  If you aren't using 2.1.1 yet please see the instructions below for Older Versions below.
+changes][theme_engine].  If you aren't using 2.1.1 or newer yet please see the instructions below for Older Versions below.
 
 [theme_engine]: https://github.com/Codeux/Textual/wiki/Style-Developers:-Migrating-to-2.1.1
 
