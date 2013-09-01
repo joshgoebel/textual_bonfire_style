@@ -366,6 +366,11 @@ body .inline_nickname[colornumber='30'] {
 	text-overflow: ellipsis;
 }
 
+.chatlog div.msg a.hasinlineimage
+{
+  display:block;
+}
+
 /*.chatlog .line[type=part] div,
 .chatlog .line[type=quit] div
 {
