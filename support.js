@@ -18,6 +18,10 @@
     return Bonfire.message(lineNumber);
   };
 
+  Textual.topicBarValueChanged = function() {
+    return Bonfire.topic();
+  };
+
   Bonfire = {
     boot: function() {
       return Bonfire.booting || (Bonfire.booting = setTimeout(function() {
@@ -28,6 +32,10 @@
       if (Bonfire.renderer) {
         return Bonfire.renderer.message(lineNumber, 0);
       }
+    },
+    topic: function() {
+      console.log("topicBarValueChanged");
+      return Bonfire.renderer.fixup_topic();
     },
     handleEvent: function(event) {
       console.log("event: " + event);
@@ -219,7 +227,8 @@
         left_column = 150;
       }
       right_column = $(window).width() - left_column - 8;
-      css += "div.chatlog .line div.nick { width: " + left_column + "px !important }\n";
+      css += "div.chatlog .line div:first-child { width: " + left_column + "px !important }\n";
+      css += "div.chatlog .line div.last-child { width: " + right_column + "px !important }\n";
       css += "div.chatlog { width: " + $(window).width() + "px !important }";
       style_fixes.html(css);
       return null;
@@ -253,22 +262,22 @@
       return this.table.find("#line" + num);
     };
 
-    Renderer.prototype.fix_realy_long_words = function(row) {
-      var long, msg, word, words, _i, _len;
+    Renderer.prototype.fix_really_long_words = function(row) {
+      var msg, txt, word, words, _i, _len;
       msg = row.find("span.message");
-      words = row.text().split(" ");
-      long = false;
-      for (_i = 0, _len = words.length; _i < _len; _i++) {
-        word = words[_i];
-        if (word.length > 100) {
-          long = true;
-          break;
+      txt = row.text();
+      if (txt.length > 100) {
+        words = txt.split(" ");
+        for (_i = 0, _len = words.length; _i < _len; _i++) {
+          word = words[_i];
+          if (word.length > 100) {
+            msg.css({
+              "word-break": "break-all"
+            });
+            break;
+          }
         }
-      }
-      if (long) {
-        return msg.css({
-          "word-break": "break-all"
-        });
+        return null;
       }
     };
 
@@ -293,7 +302,7 @@
         before: row
       });
       time.remove();
-      this.fix_realy_long_words(row);
+      this.fix_really_long_words(row);
       row.removeClass("raw");
       sender = row.find("span.sender");
       nick = sender.attr("nick");

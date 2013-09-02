@@ -5,6 +5,7 @@ Textual.viewFinishedLoading = -> Bonfire.boot()
 Textual.viewFinishedReload = -> Bonfire.boot()
 Textual.handleEvent = (event) -> Bonfire.handleEvent event
 Textual.newMessagePostedToView = (lineNumber) -> Bonfire.message lineNumber
+Textual.topicBarValueChanged = -> Bonfire.topic()
 
 Bonfire =
   boot: ->
@@ -13,6 +14,9 @@ Bonfire =
     , 25
   message: (lineNumber) ->
     Bonfire.renderer.message lineNumber, 0 if Bonfire.renderer
+  topic: ->
+    console.log "topicBarValueChanged"
+    Bonfire.renderer.fixup_topic()
   handleEvent: (event) ->
     console.log "event: #{event}"
     if Bonfire.renderer.hello[event]
@@ -139,8 +143,8 @@ class Renderer
     right_column = $(window).width() - left_column - 8
     # console.log "window width", $(window).width()
     # css+="table.bf { max-width: #{$(window).width() }px !important }\n"
-    css+="div.chatlog .line div.nick { width: " + left_column + "px !important }\n"
-    # css+="table.bf tr td.msg { width: " + right_column + "px !important }\n"
+    css+="div.chatlog .line div:first-child { width: " + left_column + "px !important }\n"
+    css+="div.chatlog .line div.last-child { width: " + right_column + "px !important }\n"
     css+="div.chatlog { width: " + $(window).width() + "px !important }";
     style_fixes.html css
     null
@@ -170,15 +174,17 @@ class Renderer
       @no_time += 1
   line: (num) ->
     @table.find("#line#{num}")
-  fix_realy_long_words: (row) ->
-    msg = row.find("span.message")
-    words = row.text().split(" ")
-    long = false
-    for word in words
-      if word.length > 100
-        long = true
-        break
-    msg.css "word-break": "break-all" if long
+  fix_really_long_words: (row) ->
+    msg = row.find "span.message"
+    txt = row.text()
+    if txt.length > 100
+      words = txt.split " "
+      for word in words
+        if word.length > 100
+          msg.css "word-break": "break-all"
+          break
+      # so we don't aggregate results (coffeescript)
+      null
   message: (lineNumber, repeat) ->
     # console.log "process line: #{lineNumber}"
     row = @line(lineNumber)
@@ -203,7 +209,7 @@ class Renderer
     @time time.html(), before: row
     time.remove()
 
-    @fix_realy_long_words row
+    @fix_really_long_words row
     # mark this row as processed
     row.removeClass "raw"
 

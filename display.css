@@ -16,7 +16,7 @@ body {
 	overflow-y: visible;
 	background-color: #fff;
 	font-family: "Lucida Grande";
-	background:url(Data/Resources/linen.png);
+/*  background:url(Data/Resources/linen.png);*/
 }
 
 #loading_screen { display:none; }
@@ -24,12 +24,22 @@ body {
 /* tables, yeah */
 
 div#body_home {
-  display:table;
+/*  display:table;*/
   table-layout:fixed;
   border-collapse:separate;
 	border-spacing:0px;
 	background:#fff;
+  
+  position:absolute;
+  bottom:0;
+  right:0;
+  left:0;
   }
+  
+body[type="channel"] div#body_home {
+max-height: 96.5%;
+}
+  
 div.line { display:table-row; }
 div#mark { display:table-row; }
 div.line .nick { display:table-cell; }
@@ -276,6 +286,9 @@ body .sender[type*=normal][colornumber='30'],
 body .inline_nickname[colornumber='30'] {
 	color: #08465f;
 }
+
+/* all new colors of my own choosing */
+
 
 /*body .inline_nickname[colornumber] { color:inherit !important; }*/
 
