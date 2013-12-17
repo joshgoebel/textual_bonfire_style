@@ -15,13 +15,13 @@
 		{{/fragmentIsUnderlined}}
 	"
 	
-	{{#fragmentTextColor}}
+	{{#fragmentTextColorIsSet}}
 		color-number="{{fragmentTextColor}}" 
-	{{/fragmentTextColor}}
+	{{/fragmentTextColorIsSet}}
 	
-	{{#fragmentBackgroundColor}}
+	{{#fragmentBackgroundColorIsSet}}
 		bgcolor-number="{{fragmentBackgroundColor}}" 
-	{{/fragmentBackgroundColor}}
+	{{/fragmentBackgroundColorIsSet}}
 >{{/fragmentContainsFormattingSymbols}}
 {{{messageFragment}}}
 {{#fragmentContainsFormattingSymbols}}</span>{{/fragmentContainsFormattingSymbols}}
