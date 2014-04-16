@@ -5,7 +5,11 @@
 	id="line{{lineNumber}}"
   time="{{lineRenderTime}}">
 
-	<div class="nick">
+	<div class="nick"
+		data-nick="{{nickname}}"
+		onmouseover="BonfireHelpers.highlight_nick('{{nickname}}')"
+		onmouseout="BonfireHelpers.unhighlight_nick('{{nickname}}')"
+	>
 	  	<span class="sender"
 	  		ondblclick="Textual.nicknameDoubleClicked()"
 	  		oncontextmenu="Textual.openStandardNicknameContextualMenu()"
@@ -19,14 +23,16 @@
 	  			{{formattedNickname}}
   		</span>
 	</div>
-		<div class="msg">
-{{#isRemoteMessage}}
-	<p>
-{{/isRemoteMessage}}
 
-{{^isRemoteMessage}}
-	<p type="{{nicknameType}}">
-{{/isRemoteMessage}}
+
+	<div class="msg">
+		{{#isRemoteMessage}}
+			<p>
+		{{/isRemoteMessage}}
+
+		{{^isRemoteMessage}}
+			<p type="{{nicknameType}}">
+		{{/isRemoteMessage}}
 
 		<span class="time">{{formattedTimestamp}} </span>
 		<span class="message">
