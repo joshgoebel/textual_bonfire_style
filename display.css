@@ -29,17 +29,17 @@ div#body_home {
   border-collapse:separate;
 	border-spacing:0px;
 	background:#fff;
-  
+
   position:absolute;
   bottom:0;
   right:0;
   left:0;
   }
-  
+
 body[type="channel"] div#body_home {
 max-height: 96.5%;
 }
-  
+
 div.line { display:table-row; }
 div#mark { display:table-row; }
 div.line .nick { display:table-cell; }
@@ -576,6 +576,10 @@ body .inline_nickname[colornumber='30'] {
 }
 
 
+.nick-highlighted {
+  background: #ddd !important;
+  border-bottom-color: #ddd !important;
+}
 
 
 

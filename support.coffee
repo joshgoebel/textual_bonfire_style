@@ -7,6 +7,7 @@ Textual.handleEvent = (event) -> Bonfire.handleEvent event
 Textual.newMessagePostedToView = (lineNumber) -> Bonfire.message lineNumber
 Textual.topicBarValueChanged = -> Bonfire.topic()
 
+
 Bonfire =
   boot: ->
     Bonfire.booting ||= setTimeout () ->
@@ -224,4 +225,17 @@ class Renderer
         sender.parent().css "padding-top": "6px"
     else
       @same_nick += 1
-      sender.remove()
+      sender.hide()
+
+
+window.BonfireHelpers =
+  highlight_nick: (nick) ->
+    user_msgs = $(".nick[data-nick=\"#{nick}\"]")
+    user_msgs.each (idx, msg) =>
+      $(msg).addClass "nick-highlighted"
+
+
+  unhighlight_nick: (nick) ->
+    user_msgs = $(".nick[data-nick=\"#{nick}\"]")
+    user_msgs.each (idx, msg) =>
+      $(msg).removeClass "nick-highlighted"
