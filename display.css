@@ -577,8 +577,8 @@ body .inline_nickname[colornumber='30'] {
 
 
 .nick-highlighted {
-  background: #ccc !important;
-  border-bottom-color: #ccc !important;
+  background: #ddd !important;
+  border-bottom-color: #ddd !important;
 }
 
 
