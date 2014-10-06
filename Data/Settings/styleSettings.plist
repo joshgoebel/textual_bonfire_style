@@ -17,5 +17,12 @@
 	<integer>6</integer>
 	<key>Underlying Window Color</key>
 	<string>#FFFFFF</string>
+	<key>Template Engine Versions</key>
+	<dict>
+		<key>default</key>
+		<integer>3</integer>
+	</dict>
+	<key>Template Engine Version</key>
+	<integer>3</integer>
 </dict>
 </plist>

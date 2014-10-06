@@ -1,48 +1,55 @@
 # Bonfire
 
 Bonfire is a nice and light theme for Textual based around the same asthetics as
-37signals' popular [Campfire](http://campfirenow.com) chat web service.  Dark sides
-can be turned on and off with `Darken main window colors` check box in preferences.
-I just happen to like them dark, so that's what I used for the sample snap.
+37signals' popular [Campfire](http://campfirenow.com) chat web service.  Dark sides can be turned on and off with `Darken main window colors` check box in preferences. I just happen to like them dark, so that's what I used for the sample snap.
 
 ![What it looks like](https://raw.github.com/yyyc514/textual_bonfire_style/master/bonfire_snap.png)
 
-## Textual 3.x
 
-I've recently improved the theme to handle server and channel events so that when you are looking at a channel or server window it will be very clear if you are not joined to the channel or have been disconnected from the server.  This was one of my few gripes about Textual before.
+## Supported Versions
 
-## Textual 2.1.1 or newer required
+### Textual 5
 
-The `master` branch now only supports Textual 2.1.1 and newer because of the recent [theme engine
-changes][theme_engine].  If you aren't using 2.1.1 or newer yet please see the instructions below for Older Versions below.
+Should support version 5.0 now.  Previous versions of Textual are no longer officially supported. 
 
-[theme_engine]: https://github.com/Codeux/Textual/wiki/Style-Developers:-Migrating-to-2.1.1
+See the information below on [Older Versions](#older) if you want to use this theme on an older version of Textual.
 
-### Installation
+#### Installation
 
-    cd ~/Library/Containers/com.codeux.textual/Data/Library/
-    cd Application\ Support/Textual\ IRC/Styles/
+* Open Textual Preferences
+* Expand Addons
+* Choose Installed Addons
+* Choose Open In Finder
+* Clone the repository or install the ZIP
+
+##### Cloning the repository
+
     git clone git://github.com/yyyc514/textual_bonfire_style.git
 
-Now go choose your new theme inside Textual.
+##### Install the ZIP
+
+* Visit https://github.com/yyyc514/textual_bonfire_style
+* Click Download ZIP on the right side
+* Extract the zipfile into the Styles folder
+* Consider renaming the folder to remove the '-master' suffix
+
+Now go choose your shiny new theme inside Textual.  You're welcome.
+
+-----
 
 <a name="older"></a>
 ## Older Versions
 
-### Textual 2.1 (from App Store)
+### Textual 3.x and 4.x
 
-Use the [textual_21](https://github.com/yyyc514/textual_bonfire_style/tree/textual_21) branch
-of this repository.
+Use the [textual4](https://github.com/yyyc514/textual_bonfire_style/tree/textual4) branch.
 
-### Installation
+Pretty sure they will both work with the `textual4` branch.  If not you can try to keep going backwards in the commit history until you find something that works.
 
-I'm no longer running 2.1, the Styles path might be slightly different than shown here.
+### Textual 2.1.1+ and 2.1.x
 
-    cd ~/Library/Containers/com.codeux.textual/Data/Library/
-    cd Application\ Support/Textual\ IRC/Styles/
-    git clone git://github.com/yyyc514/textual_bonfire_style.git
-    cd textual_bonfire_style
-    git checkout textual_21
+Try commit `a8c48d88a90c011c808332020cd33e1e419b876d` and if you have no idea what that means, please use a newer version of Textual.
 
+### Texual 2.1.0
 
-Go choose your new theme inside Textual.
+Use the [textual_21](https://github.com/yyyc514/textual_bonfire_style/tree/textual_21) branch.
