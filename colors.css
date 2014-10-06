@@ -1,3 +1,4 @@
+
 body .sender[mtype*=normal][colornumber='0'],
 body .inline_nickname[colornumber='0'] {
   color: DarkBlue;

@@ -71,7 +71,7 @@ div#mark {
   -webkit-transition: 0.2s linear;
 }
 
-div#mark div { border-bottom: 2px dashed #c33; }
+div#mark div { border-bottom: 2px dotted #c33; }
 
 /* Links */
 
@@ -132,173 +132,23 @@ body img {
 /* Nickname Colors */
 
 /*body p[type=myself] .message {*/
-.line[mtype=myself] .message {
-	color: #222 !important;
-}
 
-
-body .sender[mtype*=normal][colornumber='0'],
-body .inline_nickname[colornumber='0'] {
-	color: #0080ff;
-}
-
-body .sender[mtype*=normal][colornumber='1'],
-body .inline_nickname[colornumber='1'] {
-	color: #059005;
-}
-
-body .sender[mtype*=normal][colornumber='2'],
-body .inline_nickname[colornumber='2'] {
-	color: #a80054;
-}
-
-body .sender[mtype*=normal][colornumber='3'],
-body .inline_nickname[colornumber='3'] {
-	color: #9b0db1;
-}
-
-body .sender[mtype*=normal][colornumber='4'],
-body .inline_nickname[colornumber='4'] {
-	color: #108860;
-}
-
-body .sender[mtype*=normal][colornumber='5'],
-body .inline_nickname[colornumber='5'] {
-	color: #7F4FFF;
-}
-
-body .sender[mtype*=normal][colornumber='6'],
-body .inline_nickname[colornumber='6'] {
-	color: #58701a;
-}
-
-body .sender[mtype*=normal][colornumber='7'],
-body .inline_nickname[colornumber='7'] {
-	color: #620a8e;
-}
-
-body .sender[mtype*=normal][colornumber='8'],
-body .inline_nickname[colornumber='8'] {
-	color: #BB0008;
-}
-
-body .sender[mtype*=normal][colornumber='9'],
-body .inline_nickname[colornumber='9'] {
-	color: #44345f;
-}
-
-body .sender[mtype*=normal][colornumber='10'],
-body .inline_nickname[colornumber='10'] {
-	color: #2f5353;
-}
-
-body .sender[mtype*=normal][colornumber='11'],
-body .inline_nickname[colornumber='11'] {
-	color: #904000;
-}
-
-body .sender[mtype*=normal][colornumber='12'],
-body .inline_nickname[colornumber='12'] {
-	color: #808000;
-}
-
-body .sender[mtype*=normal][colornumber='13'],
-body .inline_nickname[colornumber='13'] {
-	color: #57797e;
-}
-
-body .sender[mtype*=normal][colornumber='14'],
-body .inline_nickname[colornumber='14'] {
-	color: #3333dd;
-}
-
-body .sender[mtype*=normal][colornumber='15'],
-body .inline_nickname[colornumber='15'] {
-	color: #5f4d22;
-}
-
-body .sender[mtype*=normal][colornumber='16'],
-body .inline_nickname[colornumber='16'] {
-	color: #706616;
-}
-
-body .sender[mtype*=normal][colornumber='17'],
-body .inline_nickname[colornumber='17'] {
-	color: #46799c;
-}
-
-body .sender[mtype*=normal][colornumber='18'],
-body .inline_nickname[colornumber='18'] {
-	color: #80372e;
-}
-
-body .sender[mtype*=normal][colornumber='19'],
-body .inline_nickname[colornumber='19'] {
-	color: #8F478E;
-}
-
-body .sender[mtype*=normal][colornumber='20'],
-body .inline_nickname[colornumber='20'] {
-	color: #5b9e4c;
-}
-
-body .sender[mtype*=normal][colornumber='21'],
-body .inline_nickname[colornumber='21'] {
-	color: #13826c;
-}
-
-body .sender[mtype*=normal][colornumber='22'],
-body .inline_nickname[colornumber='22'] {
-	color: #b13637;
-}
-
-body .sender[mtype*=normal][colornumber='23'],
-body .inline_nickname[colornumber='23'] {
-	color: #e45d59;
-}
-
-body .sender[mtype*=normal][colornumber='24'],
-body .inline_nickname[colornumber='24'] {
-	color: #1b51ae;
-}
-
-body .sender[mtype*=normal][colornumber='25'],
-body .inline_nickname[colornumber='25'] {
-	color: #4855ac;
-}
-
-body .sender[mtype*=normal][colornumber='26'],
-body .inline_nickname[colornumber='26'] {
-	color: #7f1d86;
-}
-
-body .sender[mtype*=normal][colornumber='27'],
-body .inline_nickname[colornumber='27'] {
-	color: #73643f;
-}
-
-body .sender[mtype*=normal][colornumber='28'],
-body .inline_nickname[colornumber='28'] {
-	color: #0b9578;
-}
-
-body .sender[mtype*=normal][colornumber='29'],
-body .inline_nickname[colornumber='29'] {
-	color: #569c96;
-}
-
-body .sender[mtype*=normal][colornumber='30'],
-body .inline_nickname[colornumber='30'] {
-	color: #08465f;
-}
-
-/* all new colors of my own choosing */
 
 
 /*body .inline_nickname[colornumber] { color:inherit !important; }*/
 
 
 /* bonfire */
+
+.line .message {
+  color:#222;
+}
+
+
+.line[mtype=myself] .message {
+	color: #333 !important;
+}
+
 
 .chatlog .line div {
 	border-bottom:1px solid #eee;
@@ -309,6 +159,7 @@ body .inline_nickname[colornumber='30'] {
 {
 	background:#ffffd7 !important;
   background:#FFfacc !important;
+  background:#e1eaf4 !important;
 	border-bottom:0px;
 }
 
@@ -321,17 +172,22 @@ body .inline_nickname[colornumber='30'] {
 {
 	text-align:right;
 	vertical-align:top;
-	font-weight:bold;
-	background:#eee;
-	border-right:1px solid #ccc;
+	xbackground:#eee;
+	border-right:1px solid #eee;
   width:17%;
 	color:#444;
 	white-space:nowrap;
+  font-weight:600;
 
   max-width:12em;
   min-width:120px;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.chatlog .line[mtype=myself] div.nick
+{
+  font-weight:normal;
 }
 
 .chatlog div.msg
@@ -505,11 +361,18 @@ body .inline_nickname[colornumber='30'] {
 #hello
 {
   background:url(Data/Resources/linen.png);
+  background:#f7f7f7;
   display:table;
   margin:auto;
   height:100%;
   width:100%;
-  font-family:'Helvetica Neue';
+  font-family:'Helvetica Neue', Helvetica, sans-serif;
+}
+#hello img#appicon
+{
+  text-align:center;
+  margin:0 auto;
+  margin-bottom:15px;
 }
 
 #hello div
@@ -525,9 +388,10 @@ body .inline_nickname[colornumber='30'] {
 {
   border-radius:5px;
   padding:5px 10px;
-  background:rgba(255,255,255,0.2);
+  font-weight:500;
+  xbackground:rgba(255,255,255,0.2);
   color:#333;
-  font-size:2em;
+  font-size:3em;
 /*  box-shadow:0px 0px 5px #666;*/
 }
 
@@ -536,12 +400,11 @@ body .inline_nickname[colornumber='30'] {
 #hello p
 {
 /*  background:rgba(255,255,255,0.5);*/
-  text-shadow:1px 1px 0px #666;
+  xtext-shadow:1px 1px 0px #666;
   margin-top:0.5em;
   font-size:2em;
   color:#777;
-  color:#eee;;
-  font-weight:300;
+  font-weight:200;
 /*  box-shadow:0px 1px 10px #666;*/
 }
 

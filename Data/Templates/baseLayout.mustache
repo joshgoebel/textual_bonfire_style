@@ -28,12 +28,6 @@
 				font-family: '{{userConfiguredFontName}}';
 				font-size: {{userConfiguredFontSize}}pt;
 			}
-
-			{{#windowAntialiasingDisabled}}
-				body {
-					-webkit-font-smoothing: none;
-				}
-			{{/windowAntialiasingDisabled}}
     
 			{{!
 				The following CSS definitions exist for the internal use of Textual.
@@ -142,6 +136,9 @@
 
 			<div id="hello">
         <div>
+        <img src="{{applicationResourcePath}}/applicationIconYosemite.icns" 
+        width="128" height="128" id="appicon" />
+            
         <span class="channel">{{channelName}}
         {{^isChannelView}}{{configuredServerName}}{{/isChannelView}}
       </span>
