@@ -1,4 +1,4 @@
-# Copyright © 2010 - 2013 Josh Goebel
+# Copyright © 2010 - 2014 Josh Goebel
 
 # Textual API hooks
 Textual.viewFinishedLoading = -> Bonfire.boot()

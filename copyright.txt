@@ -1,1 +1,1 @@
-Copyright © 2010, 2011, 2012 Josh Goebel
+Copyright © 2010-2014 Josh Goebel
