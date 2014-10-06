@@ -5,7 +5,7 @@
 	<key>Nickname Format</key>
 	<string></string>
 	<key>Timestamp Format</key>
-	<string></string>
+	<string>%I:%M%p</string>
 	<key>Override Channel Font</key>
 	<dict>
 		<key>Font Name</key>
