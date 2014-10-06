@@ -6,14 +6,18 @@
   time="{{lineRenderTime}}">
 
 	<div class="nick">
-  	<span class="sender"
-  		ondblclick="Textual.nicknameDoubleClicked()"
-  		oncontextmenu="Textual.openStandardNicknameContextualMenu()"
-  		type="{{nicknameType}}"
-  		nick="{{nickname}}"
-  		{{#nicknameColorHashingEnabled}}
-  			colornumber="{{nicknameColorNumber}}"
-  		{{/nicknameColorHashingEnabled}}>{{formattedNickname}}</span>
+	  	<span class="sender"
+	  		ondblclick="Textual.nicknameDoubleClicked()"
+	  		oncontextmenu="Textual.openStandardNicknameContextualMenu()"
+	  		type="{{nicknameType}}"
+	  		nick="{{nickname}}"
+	  		nickname="{{nickname}}"
+	  		{{#nicknameColorHashingEnabled}}
+	  			colornumber="{{nicknameColorNumber}}"
+	  		{{/nicknameColorHashingEnabled}}
+	  	>
+	  			{{formattedNickname}}
+  		</span>
 	</div>
 		<div class="msg">
 {{#isRemoteMessage}}
