@@ -305,7 +305,7 @@
       this.fix_really_long_words(row);
       row.removeClass("raw");
       sender = row.find("span.sender");
-      nick = sender.attr("nick");
+      nick = sender.attr("nickname");
       if (nick !== Bonfire.last_nick || this.same_nick > 7) {
         Bonfire.last_nick = nick;
         this.same_nick = 0;

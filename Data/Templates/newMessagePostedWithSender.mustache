@@ -1,29 +1,37 @@
-<div type="{{lineType}}"
+{{! The 'line types' folder needs to be copied to a custom style to modify this file. }}
+
+<div type="{{lineType}}" ltype="{{lineType}}"
+
+{{^isRemoteMessage}}
+		mtype="{{nicknameType}}"
+{{/isRemoteMessage}}
+
+{{#isEncrypted}}
+		encrypted="true"
+{{/isEncrypted}}
+
+  time="{{lineRenderTime}}"
+
 	highlight="{{highlightAttributeRepresentation}}"
 	class="line raw {{lineClassAttributeRepresentation}}"
-	nicktype="{{nicknameType}}"
-	id="line{{lineNumber}}"
-  time="{{lineRenderTime}}">
+	id="line{{lineNumber}}">
 
 	<div class="nick">
   	<span class="sender"
-  		ondblclick="Textual.nicknameDoubleClicked()"
-  		oncontextmenu="Textual.openStandardNicknameContextualMenu()"
-  		type="{{nicknameType}}"
-  		nick="{{nickname}}"
+			onclick="Textual.nicknameMaybeWasDoubleClicked(this)"
+			oncontextmenu="Textual.openStandardNicknameContextualMenu()"
+      mtype="{{nicknameType}}"
+  		nickname="{{nickname}}"
   		{{#nicknameColorHashingEnabled}}
   			colornumber="{{nicknameColorNumber}}"
-  		{{/nicknameColorHashingEnabled}}>{{formattedNickname}}</span>
+  		{{/nicknameColorHashingEnabled}}>{{formattedNickname}}
+    </span>
 	</div>
 		<div class="msg">
-{{#isRemoteMessage}}
 	<p>
-{{/isRemoteMessage}}
-
-{{^isRemoteMessage}}
-	<p type="{{nicknameType}}">
-{{/isRemoteMessage}}
-
+    {{#isEncrypted}}
+    	{{{encryptedMessageLockTemplate}}}
+    {{/isEncrypted}}
 		<span class="time">{{formattedTimestamp}} </span>
 		<span class="message">
 					{{{formattedMessage}}}

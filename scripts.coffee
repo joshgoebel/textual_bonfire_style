@@ -215,7 +215,7 @@ class Renderer
 
     # hide same nick in a row
     sender = row.find("span.sender")
-    nick = sender.attr("nick")
+    nick = sender.attr("nickname")
     if nick != Bonfire.last_nick or @same_nick > 7
       Bonfire.last_nick = nick
       @same_nick = 0
