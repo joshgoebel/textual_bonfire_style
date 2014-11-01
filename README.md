@@ -21,6 +21,7 @@ See the information below on [Older Versions](#older) if you want to use this th
 * Expand Addons
 * Choose Installed Addons
 * Choose Open In Finder
+* Open the Styles folder
 * Clone the repository or install the ZIP
 
 ##### Cloning the repository
@@ -31,7 +32,6 @@ See the information below on [Older Versions](#older) if you want to use this th
 
 * Visit https://github.com/yyyc514/textual_bonfire_style
 * Click Download ZIP on the right side
-* Extract the zipfile into the Styles folder
 * Consider renaming the folder to remove the '-master' suffix
 
 Now go choose your shiny new theme inside Textual.  You're welcome.
