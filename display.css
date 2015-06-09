@@ -29,13 +29,13 @@ div#body_home {
   border-collapse:separate;
 	border-spacing:0px;
 	background:#fff;
-  
+
   position:absolute;
   bottom:0;
   right:0;
   left:0;
   }
-  
+
 body[type="channel"] div#body_home {
 max-height: 96.5%;
 }
@@ -43,7 +43,7 @@ max-height: 96.5%;
 body[type="server"] div#body_home {
 max-height: 100%;
 }
-  
+
 div.line { display:table-row; }
 div#mark { display:table-row; }
 div.line .nick { display:table-cell; }
@@ -128,6 +128,15 @@ body img {
     padding-left: 8px;
     padding-bottom: 5px;
 }
+
+body .inlineImageCell {
+  display:block;
+}
+
+body .inlineImageCell .closeButton {
+  cursor: pointer;
+}
+
 
 /* Nickname Colors */
 
