@@ -36,12 +36,13 @@ div#body_home {
   left:0;
   }
 
-body[type="channel"] div#body_home {
-max-height: 96.5%;
+body[type="channel"] div#body_home,
+body[type="query"] div#body_home {
+  max-height: 96.5%;
 }
 
 body[type="server"] div#body_home {
-max-height: 100%;
+  max-height: 100%;
 }
 
 div.line { display:table-row; }
