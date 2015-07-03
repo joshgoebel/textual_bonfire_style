@@ -69,9 +69,10 @@ div#mark {
 /*  border-bottom: 2px dotted;*/
   border-color: #c00;
   -webkit-transition: 0.2s linear;
+  font-size:1px;
 }
 
-div#mark div { border-bottom: 2px dotted #c33; }
+div#mark div { border-bottom: 2.5px dotted #c33; }
 
 /* Links */
 
